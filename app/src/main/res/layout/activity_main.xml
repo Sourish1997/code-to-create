@@ -11,7 +11,15 @@
     tools:context="acm.event.codetocreate17.MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="16dp"
+        android:text="Welcome!!"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="23sp"
+        android:visibility="visible" />
 </RelativeLayout>
