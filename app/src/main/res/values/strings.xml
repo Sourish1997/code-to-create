@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Code To Create 17</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="transition_zoom_out">transitionZoomOut</string>
 </resources>
