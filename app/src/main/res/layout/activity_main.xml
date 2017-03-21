@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <io.codetail.widget.RevealFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main_container_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/main_content_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/main_content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize" />
+
+    </io.codetail.widget.RevealFrameLayout>
+
+    <ScrollView
+        android:id="@+id/main_scroll_view"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|bottom"
+        android:scrollbarThumbVertical="@android:color/transparent">
+
+        <LinearLayout
+            android:id="@+id/main_drawer"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.DrawerLayout>
+

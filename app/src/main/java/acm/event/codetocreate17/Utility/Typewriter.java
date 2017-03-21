@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.Utilities;
+package acm.event.codetocreate17.Utility;
 
 import android.content.Context;
 import android.os.Handler;

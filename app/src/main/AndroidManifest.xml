@@ -3,11 +3,12 @@
     package="acm.event.codetocreate17">
 
     <application
+        android:label="Code to Create '17"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Landing.SplashActivity"
+        <activity android:name=".UI.Landing.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -15,9 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Authentication.LoginActivity"
+        <activity android:name=".UI.Authentication.LoginActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".UI.Main.MainActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
-
 </manifest>
