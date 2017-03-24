@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acm.event.codetocreate17.R;
+import acm.event.codetocreate17.UI.Fragments.TeamFragment;
 import acm.event.codetocreate17.UI.Fragments.TimelineFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         setActionBar();
         createMenuList();
 
-        viewAnimator = new ViewAnimator<>(this, list, loadTimelineFragment() , drawerLayout, this);
+        viewAnimator = new ViewAnimator<>(this, list, loadTimelineFragment(), drawerLayout, this);
     }
 
     private void createMenuList() {
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         list.add(menuItem1);
         SlideMenuItem menuItem2 = new SlideMenuItem("Timeline", R.drawable.ic_delivery_box_and_timer);
         list.add(menuItem2);
-        SlideMenuItem menuItem3 = new SlideMenuItem("Team Details", R.drawable.ic_workers_team);
+        SlideMenuItem menuItem3 = new SlideMenuItem("Team", R.drawable.ic_workers_team);
         list.add(menuItem3);
         SlideMenuItem menuItem4 = new SlideMenuItem("Quiz", R.drawable.ic_notepad);
         list.add(menuItem4);
@@ -105,11 +106,14 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
 
     public ScreenShotable loadTimelineFragment() {
         TimelineFragment timelineFragment = new TimelineFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(Integer.class.getName(), R.drawable.logo_white);
-        timelineFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, timelineFragment).commit();
         return timelineFragment;
+    }
+
+    public ScreenShotable loadTeamFragment() {
+        TeamFragment teamFragment = new TeamFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, teamFragment).commit();
+        return teamFragment;
     }
 
     @Override
@@ -145,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             case "Timeline":
                 getSupportActionBar().setTitle("Timeline");
                 return loadTimelineFragment();
+            case "Team":
+                getSupportActionBar().setTitle("My Team");
+                return loadTeamFragment();
             default:
                 return screenShotable;
         }
