@@ -18,7 +18,6 @@ import java.util.List;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.View.Fragments.TeamFragment;
 import acm.event.codetocreate17.View.Fragments.TimelineFragment;
-import acm.event.codetocreate17.UI.Fragments.TimelineFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.codetail.animation.SupportAnimator;
@@ -117,11 +116,11 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         return teamFragment;
     }
 
-    public ScreenShotable loadAboutFragment() {
+    /*public ScreenShotable loadAboutFragment() {
         AboutFragment aboutFragment = new AboutFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, aboutFragment).commit();
         return aboutFragment;
-    }
+    }*/
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                 return loadTeamFragment();
             case "About Us":
                 getSupportActionBar().setTitle("About Us");
-                return loadAboutFragment();
+                //return loadAboutFragment();
             default:
                 return screenShotable;
         }

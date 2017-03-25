@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,17 +19,21 @@ import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.MemberRecyclerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
-public class TeamFragment extends Fragment implements ScreenShotable {
+public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayout.OnOffsetChangedListener {
     @BindView(R.id.team_root_layout)
     CoordinatorLayout teamContainer;
     @BindView(R.id.team_details_view)
     RecyclerView membersList;
+    @BindView(R.id.team_appbar)
+    AppBarLayout appBar;
 
-    RecyclerView.Adapter membersAdapter;
+    MemberRecyclerAdapter membersAdapter;
     ArrayList<String> memberNames;
     ArrayList<String> memberEmails;
+    boolean userAdded = false;
 
     private Bitmap bitmap;
 
@@ -59,7 +64,37 @@ public class TeamFragment extends Fragment implements ScreenShotable {
         membersAdapter = new MemberRecyclerAdapter(memberNames, memberEmails);
         membersList.setAdapter(membersAdapter);
         membersList.setLayoutManager(new LinearLayoutManager(membersList.getContext()));
+        membersList.setItemAnimator(new FadeInLeftAnimator());
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        appBar.addOnOffsetChangedListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        appBar.removeOnOffsetChangedListener(this);
+    }
+
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        int maxScroll = appBarLayout.getTotalScrollRange();
+        float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
+
+        if(percentage > 0.7 && !userAdded) {
+            membersAdapter.addUserToTeamView("Sourish Banerjee", "sourish.banerjeee@gmail.com", 0);
+            userAdded = true;
+        }
+
+        if(percentage < 0.7 && userAdded) {
+            membersAdapter.removeUserFromTeamView(0);
+            userAdded = false;
+        }
     }
 
     @Override

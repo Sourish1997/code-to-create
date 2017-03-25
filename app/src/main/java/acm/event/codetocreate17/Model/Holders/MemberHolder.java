@@ -12,14 +12,15 @@ import acm.event.codetocreate17.R;
  */
 
 public class MemberHolder extends RecyclerView.ViewHolder {
-    public View divider;
+    public View dividerTop, dividerBottom;
     public ImageView icon;
     public TextView name;
     public TextView email;
 
     public MemberHolder(View itemView) {
         super(itemView);
-        divider = itemView.findViewById(R.id.member_divider);
+        dividerTop = itemView.findViewById(R.id.member_divider_top);
+        dividerBottom = itemView.findViewById(R.id.member_divider_bottom);
         icon = (ImageView) itemView.findViewById(R.id.member_leader_icon);
         name = (TextView) itemView.findViewById(R.id.member_name);
         email = (TextView) itemView.findViewById(R.id.member_email);

@@ -43,12 +43,47 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/team_name_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/team_profile_image">
+
+                    <TextView
+                        android:id="@+id/team_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="Sourish Banerjee"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="22sp"
+                        app:layout_constraintLeft_toRightOf="@+id/imageView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="8dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_crown" />
+                </android.support.constraint.ConstraintLayout>
+
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/team_profile_image"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
                     android:layout_marginTop="24dp"
                     android:src="@drawable/av_male"
                     app:layout_constraintHorizontal_bias="0.503"
@@ -60,39 +95,18 @@
                 </de.hdodenhof.circleimageview.CircleImageView>
 
                 <TextView
-                    android:id="@+id/team_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:paddingLeft="16dp"
-                    android:text="Sourish Banerjee"
-                    android:textAlignment="center"
-                    android:textColor="@color/textColorPrimary"
-                    android:textSize="22sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/team_profile_image" />
-
-                <TextView
                     android:id="@+id/team_email_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:paddingLeft="16dp"
                     android:text="sourish.banerjeee@gmail.com"
                     android:textColor="@color/textColorSecondary"
                     app:layout_constraintHorizontal_bias="0.503"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/team_username"
+                    app:layout_constraintTop_toBottomOf="@+id/team_name_holder"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="8dp" />
 
@@ -141,10 +155,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
                     android:layout_marginTop="8dp"
                     android:orientation="vertical"
                     app:layout_constraintLeft_toLeftOf="parent"

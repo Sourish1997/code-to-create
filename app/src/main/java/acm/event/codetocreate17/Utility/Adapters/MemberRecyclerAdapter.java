@@ -16,10 +16,24 @@ import acm.event.codetocreate17.R;
 public class MemberRecyclerAdapter extends RecyclerView.Adapter {
     ArrayList<String> memberNames;
     ArrayList<String> memberEmails;
+    boolean userAdded = false;
 
     public MemberRecyclerAdapter(ArrayList<String> memberNames, ArrayList<String> memberEmails) {
         this.memberNames = memberNames;
         this.memberEmails = memberEmails;
+    }
+
+    public void removeUserFromTeamView(int position) {
+        memberNames.remove(position);
+        memberEmails.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void addUserToTeamView(String name, String email, int position) {
+        memberNames.add(position, name);
+        memberEmails.add(position, email);
+        notifyItemInserted(position);
+        userAdded = true;
     }
 
     @Override
@@ -33,7 +47,9 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter {
         memberHolder.name.setText(memberNames.get(position));
         memberHolder.email.setText(memberEmails.get(position));
         if(position == 0)
-        memberHolder.divider.setBackgroundColor(0x00000000);
+            memberHolder.dividerTop.setBackgroundColor(0x00000000);
+        if(userAdded && position == 0)
+            memberHolder.dividerBottom.setBackgroundColor(0x22000000);
     }
 
     @Override
