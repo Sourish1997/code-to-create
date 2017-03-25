@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.UI.Main;
+package acm.event.codetocreate17.View.Main;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.UI.Fragments.TeamFragment;
-import acm.event.codetocreate17.UI.Fragments.TimelineFragment;
+import acm.event.codetocreate17.View.Fragments.TeamFragment;
+import acm.event.codetocreate17.View.Fragments.TimelineFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.codetail.animation.SupportAnimator;

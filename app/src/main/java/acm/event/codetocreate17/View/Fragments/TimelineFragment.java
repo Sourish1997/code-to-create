@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.UI.Fragments;
+package acm.event.codetocreate17.View.Fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
