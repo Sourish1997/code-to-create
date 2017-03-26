@@ -4,4 +4,5 @@
     <string name="transition_zoom_out">transitionZoomOut</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="sample_question">This is a sample question. Choose one of the options or swipe in either of the four directions to make a choice.</string>
 </resources>

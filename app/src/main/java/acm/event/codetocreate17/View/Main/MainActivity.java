@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acm.event.codetocreate17.R;
+import acm.event.codetocreate17.View.Fragments.QuizFragment;
 import acm.event.codetocreate17.View.Fragments.TeamFragment;
 import acm.event.codetocreate17.View.Fragments.TimelineFragment;
 import butterknife.BindView;
@@ -122,6 +123,12 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         return aboutFragment;
     }*/
 
+    public ScreenShotable loadQuizFragment() {
+        QuizFragment quizFragment = new QuizFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, quizFragment).commit();
+        return quizFragment;
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -161,6 +168,9 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             case "About Us":
                 getSupportActionBar().setTitle("About Us");
                 //return loadAboutFragment();
+            case "Quiz":
+                getSupportActionBar().setTitle("Quiz");
+                return loadQuizFragment();
             default:
                 return screenShotable;
         }
