@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.UI.Fragments;
+package acm.event.codetocreate17.View.Fragments;
 
 /**
  * Created by Utkarsh._.Bajpai on 24-Mar-17.
@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import acm.event.codetocreate17.R;
 import butterknife.BindView;

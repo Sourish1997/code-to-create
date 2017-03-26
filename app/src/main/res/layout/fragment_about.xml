@@ -6,7 +6,7 @@
     android:id="@+id/about_root_layout"
     tools:context="layout.about">
 
-        <!--<android.support.constraint.ConstraintLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -304,6 +304,6 @@
 
             </ScrollView>
 
-        </android.support.constraint.ConstraintLayout>-->
+        </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

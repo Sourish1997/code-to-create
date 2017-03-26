@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acm.event.codetocreate17.R;
+import acm.event.codetocreate17.View.Fragments.AboutFragment;
 import acm.event.codetocreate17.View.Fragments.QuizFragment;
 import acm.event.codetocreate17.View.Fragments.TeamFragment;
 import acm.event.codetocreate17.View.Fragments.TimelineFragment;
@@ -117,11 +118,11 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         return teamFragment;
     }
 
-    /*public ScreenShotable loadAboutFragment() {
+    public ScreenShotable loadAboutFragment() {
         AboutFragment aboutFragment = new AboutFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, aboutFragment).commit();
         return aboutFragment;
-    }*/
+    }
 
     public ScreenShotable loadQuizFragment() {
         QuizFragment quizFragment = new QuizFragment();
@@ -167,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                 return loadTeamFragment();
             case "About Us":
                 getSupportActionBar().setTitle("About Us");
-                //return loadAboutFragment();
+                return loadAboutFragment();
             case "Quiz":
                 getSupportActionBar().setTitle("Quiz");
                 return loadQuizFragment();
