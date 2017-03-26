@@ -4,8 +4,5 @@
     <string name="transition_zoom_out">transitionZoomOut</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="about_us_event_description">A thrilling tech sprint is what is awaited by all techies. This April, there is going to be an explosion of tech-talks and the participants are going to get high on algorithms. A hackathon is all about designing, building and creating. It is a place where graphic designers, software developers, app developers and web developers collaborate intensively on software projects. The cherry on the cake is that it is free for all. The participants are required to register in a team of 2-4 members. It is an outburst of technology. It is a tech-marathon. It is a hackathon.</string>
+    <string name="sample_question">This is a sample question. Choose one of the options or swipe in either of the four directions to make a choice.</string>
 </resources>

@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.UI.Main;
+package acm.event.codetocreate17.View.Main;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.UI.Fragments.AboutFragment;
-import acm.event.codetocreate17.UI.Fragments.TeamFragment;
-import acm.event.codetocreate17.UI.Fragments.TimelineFragment;
+import acm.event.codetocreate17.View.Fragments.QuizFragment;
+import acm.event.codetocreate17.View.Fragments.TeamFragment;
+import acm.event.codetocreate17.View.Fragments.TimelineFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.codetail.animation.SupportAnimator;
@@ -117,10 +117,16 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         return teamFragment;
     }
 
-    public ScreenShotable loadAboutFragment() {
+    /*public ScreenShotable loadAboutFragment() {
         AboutFragment aboutFragment = new AboutFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, aboutFragment).commit();
         return aboutFragment;
+    }*/
+
+    public ScreenShotable loadQuizFragment() {
+        QuizFragment quizFragment = new QuizFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, quizFragment).commit();
+        return quizFragment;
     }
 
     @Override
@@ -161,7 +167,10 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                 return loadTeamFragment();
             case "About Us":
                 getSupportActionBar().setTitle("About Us");
-                return loadAboutFragment();
+                //return loadAboutFragment();
+            case "Quiz":
+                getSupportActionBar().setTitle("Quiz");
+                return loadQuizFragment();
             default:
                 return screenShotable;
         }

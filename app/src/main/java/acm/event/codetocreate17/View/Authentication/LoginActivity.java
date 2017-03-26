@@ -1,11 +1,11 @@
-package acm.event.codetocreate17.UI.Authentication;
+package acm.event.codetocreate17.View.Authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import acm.event.codetocreate17.UI.Main.MainActivity;
+import acm.event.codetocreate17.View.Main.MainActivity;
 import acm.event.codetocreate17.R;
 import butterknife.OnClick;
 

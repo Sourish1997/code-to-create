@@ -8,7 +8,7 @@
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.Landing.SplashActivity"
+        <activity android:name=".View.Landing.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.Authentication.LoginActivity"
+        <activity android:name=".View.Authentication.LoginActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".UI.Main.MainActivity"
+            android:name=".View.Main.MainActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 </manifest>

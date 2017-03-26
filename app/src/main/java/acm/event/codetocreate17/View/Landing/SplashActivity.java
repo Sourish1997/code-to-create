@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.UI.Landing;
+package acm.event.codetocreate17.View.Landing;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import acm.event.codetocreate17.UI.Authentication.LoginActivity;
+import acm.event.codetocreate17.View.Authentication.LoginActivity;
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Utility.Typewriter;
+import acm.event.codetocreate17.Utility.CustomViews.Typewriter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
