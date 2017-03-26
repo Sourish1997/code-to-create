@@ -30,6 +30,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.android.support:design:25.3.0'
     compile 'com.github.ozodrukh:CircularReveal:1.0.4'

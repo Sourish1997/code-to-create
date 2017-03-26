@@ -116,6 +116,12 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         return teamFragment;
     }
 
+    /*public ScreenShotable loadFaqFragment() {
+        FaqFragment faqFragment = new FaqFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, faqFragment).commit();
+        return faqFragment;
+    }*/
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -152,6 +158,9 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             case "Team":
                 getSupportActionBar().setTitle("My Team");
                 return loadTeamFragment();
+            case "FAQ":
+                getSupportActionBar().setTitle("FAQs");
+                //return loadFaqFragment();
             default:
                 return screenShotable;
         }
