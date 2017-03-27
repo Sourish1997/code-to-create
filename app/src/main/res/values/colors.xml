@@ -9,4 +9,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorDivider">#22000000</color>
     <color name="colorTransparent">#00000000</color>
+    <color name="colorHue">#FF0099CC</color>
 </resources>

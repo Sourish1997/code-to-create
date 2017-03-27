@@ -3,7 +3,7 @@
     package="acm.event.codetocreate17">
 
     <application
-        android:label="Code to Create '17"
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"

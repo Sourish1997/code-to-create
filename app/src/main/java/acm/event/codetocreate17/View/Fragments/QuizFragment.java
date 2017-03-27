@@ -98,7 +98,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
             swipeCardAdapter.add("card 3");
             swipeCardAdapter.add("card 4");
             swipeCardAdapter.add("card 5");
-            Animation slideInAnimation  = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_in);
+            Animation slideInAnimation  = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_in_left);
             questionStack.startAnimation(slideInAnimation);
             cardCount = 5;
             dialog.dismiss();

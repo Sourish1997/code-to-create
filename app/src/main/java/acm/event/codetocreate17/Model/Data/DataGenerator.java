@@ -31,6 +31,33 @@ public class DataGenerator {
                 ,"Its a team Challenge. It Should have a minimum of 2 and a maximum of 4 members."};
         return Ans[i];
     }
+    public static String getTimelineEvent(int i)
+    {
+        String Event[] = {"Hackathon Event 1","Hackathon Event 2","Hackathon Event 3","Hackathon Event 4","Hackathon Event 5",
+                "Hackathon Event 6","Hackathon Event 7","Hackathon Event 8","Hackathon Event 9"};
+        return Event[i];
+
+    }
+    public static String getTimelineDate(int i)
+    {
+        String Date[] = {"2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00",
+                "2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00",
+                "2017-04-14 9:00"};
+        return Date[i];
+
+    }
+    public enum OrderStatus {
+
+        COMPLETED,
+        ACTIVE,
+        INACTIVE;
+
+    }
+    public enum Orientation {
+
+        VERTICAL
+
+    }
 
 
 

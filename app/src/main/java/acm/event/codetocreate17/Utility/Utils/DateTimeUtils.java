@@ -7,9 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by HP-HP on 19-07-2016.
- */
 public class DateTimeUtils {
 
     public static String parseDateTime(String dateString, String originalFormat, String outputFromat){
