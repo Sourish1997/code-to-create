@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.UI.Main;
+package acm.event.codetocreate17.View.Main;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.UI.Fragments.TeamFragment;
-import acm.event.codetocreate17.UI.Fragments.TimelineFragment;
+import acm.event.codetocreate17.View.Fragments.AboutFragment;
+import acm.event.codetocreate17.View.Fragments.QuizFragment;
+import acm.event.codetocreate17.View.Fragments.TeamFragment;
+import acm.event.codetocreate17.View.Fragments.TimelineFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.codetail.animation.SupportAnimator;
@@ -122,6 +124,18 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         return faqFragment;
     }*/
 
+    public ScreenShotable loadAboutFragment() {
+        AboutFragment aboutFragment = new AboutFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, aboutFragment).commit();
+        return aboutFragment;
+    }
+
+    public ScreenShotable loadQuizFragment() {
+        QuizFragment quizFragment = new QuizFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, quizFragment).commit();
+        return quizFragment;
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -158,9 +172,12 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             case "Team":
                 getSupportActionBar().setTitle("My Team");
                 return loadTeamFragment();
-            case "FAQ":
-                getSupportActionBar().setTitle("FAQs");
-                //return loadFaqFragment();
+            case "About Us":
+                getSupportActionBar().setTitle("About Us");
+                return loadAboutFragment();
+            case "Quiz":
+                getSupportActionBar().setTitle("Quiz");
+                return loadQuizFragment();
             default:
                 return screenShotable;
         }

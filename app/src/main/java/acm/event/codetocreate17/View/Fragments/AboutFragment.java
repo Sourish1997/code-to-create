@@ -1,4 +1,8 @@
-package acm.event.codetocreate17.UI.Fragments;
+package acm.event.codetocreate17.View.Fragments;
+
+/**
+ * Created by Utkarsh._.Bajpai on 24-Mar-17.
+ */
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -15,9 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
-public class TeamFragment extends Fragment implements ScreenShotable {
-    @BindView(R.id.team_root_layout)
-    CoordinatorLayout teamContainer;
+
+public class AboutFragment extends Fragment implements ScreenShotable {
+    @BindView(R.id.about_root_layout)
+    CoordinatorLayout aboutContainer;
 
     private Bitmap bitmap;
 
@@ -33,7 +38,7 @@ public class TeamFragment extends Fragment implements ScreenShotable {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_team, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -43,11 +48,11 @@ public class TeamFragment extends Fragment implements ScreenShotable {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                Bitmap bitmap = Bitmap.createBitmap(teamContainer.getWidth(),
-                        teamContainer.getHeight(), Bitmap.Config.ARGB_8888);
+                Bitmap bitmap = Bitmap.createBitmap(aboutContainer.getWidth(),
+                        aboutContainer.getHeight(), Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
-                teamContainer.draw(canvas);
-                TeamFragment.this.bitmap = bitmap;
+                aboutContainer.draw(canvas);
+                AboutFragment.this.bitmap = bitmap;
             }
         };
         thread.start();

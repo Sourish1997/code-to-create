@@ -8,4 +8,5 @@
     <color name="colorBackground">#373D41</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorDivider">#22000000</color>
+    <color name="colorTransparent">#00000000</color>
 </resources>
