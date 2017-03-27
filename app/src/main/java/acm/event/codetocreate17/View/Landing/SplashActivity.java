@@ -77,7 +77,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
                     public void run() {
                         while(!text1.getText().equals(dataGenerator.splashData(0))) {
                             try {
-                                Thread.sleep(200);
+                                Thread.sleep(50);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -91,7 +91,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
                                     public void run () {
                                         while (!text2.getText().equals(dataGenerator.splashData(1))) {
                                             try {
-                                                Thread.sleep(200);
+                                                Thread.sleep(50);
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }
@@ -101,7 +101,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
                                             @Override
                                             public void run() {
                                                 try {
-                                                    Thread.sleep(1000);
+                                                    Thread.sleep(250);
                                                 } catch (InterruptedException e) {
                                                     e.printStackTrace();
                                                 }

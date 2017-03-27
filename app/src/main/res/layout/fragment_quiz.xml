@@ -9,10 +9,8 @@
 
     <com.wenchao.cardstack.CardStack
         android:id="@+id/quiz_question_stack"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="20dp"

@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 public class Typewriter extends android.support.v7.widget.AppCompatTextView {
     private CharSequence mText;
     private int mIndex;
-    private long mDelay = 150;
+    private long mDelay = 50;
 
     public Typewriter(Context context) {
         super(context);
