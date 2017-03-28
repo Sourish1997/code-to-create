@@ -1,5 +1,7 @@
 package acm.event.codetocreate17.Model.Holders;
 
+import android.support.constraint.Guideline;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -11,20 +13,19 @@ import acm.event.codetocreate17.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by HP-HP on 05-12-2015.
- */
+
 public class TimeLineViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.text_timeline_date)
-    public
-    TextView mDate;
+    public TextView mDate;
+    @BindView(R.id.card_timeline)
+    public CardView mCard;
     @BindView(R.id.text_timeline_title)
-    public
-    TextView mMessage;
+    public TextView mMessage;
     @BindView(R.id.time_marker)
-    public
-    TimelineView mTimelineView;
+    public TimelineView mTimelineView;
+    @BindView(R.id.guide_timeline)
+    public Guideline guideline;
 
     public TimeLineViewHolder(View itemView, int viewType) {
         super(itemView);

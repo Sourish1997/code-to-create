@@ -1,5 +1,10 @@
 package acm.event.codetocreate17.Model.Data;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Sourish on 19-03-2017.
  */
@@ -40,12 +45,38 @@ public class DataGenerator {
     }
     public static String getTimelineDate(int i)
     {
-        String Date[] = {"2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00",
+        String Date[] = {"2017-03-28 9:00","2017-03-28 18:00","2017-03-28 23:00","2017-04-14 9:00",
                 "2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00",
-                "2017-04-14 9:00"};
+                "2017-04-14 9:00","2017-04-14 9:00"};
         return Date[i];
 
     }
+    public static OrderStatus checkOderStatus(String s1,String s2 ) {
+        String pattern = "yyyy-MM-dd HH:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        try {
+            Date date1 = sdf.parse(s1);
+            Date date2 = sdf.parse(s2);
+            Calendar cal = Calendar.getInstance();
+            Date sys = sdf.parse(sdf.format(cal.getTime()));
+            if (sys.compareTo(date1) == -1)
+                //incomplete or inactive
+                return OrderStatus.INACTIVE;
+            else if (sys.compareTo(date2) == 0 || sys.compareTo(date2) == 1)
+                //completed
+                return OrderStatus.COMPLETED;
+            else
+                //on going or active
+                return OrderStatus.ACTIVE;
+            //if((sys.compareTo(date1)==1||sys.compareTo(date1)==0)&&sys.compareTo(date2)==-1)
+            //  return 0;
+
+        } catch (ParseException e) {
+            // Exception handling goes here
+            return OrderStatus.INACTIVE;
+        }
+    }
+
     public enum OrderStatus {
 
         COMPLETED,
