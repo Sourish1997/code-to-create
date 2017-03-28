@@ -20,9 +20,6 @@ import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Utils.DateTimeUtils;
 import acm.event.codetocreate17.Utility.Utils.VectorDrawableUtils;
 
-/**
- * Created by HP-HP on 05-12-2015.
- */
 public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
     private List<TimeLineModel> mFeedList;
