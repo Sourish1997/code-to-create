@@ -1,10 +1,19 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/timeline_frame"
+    android:id="@+id/timeline_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="acm.event.codetocreate17.View.Fragments.TimelineFragment">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-    <!-- TODO: Update blank fragment layout -->
+    android:background="@color/colorBackground">
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="10dp" />
+
+</RelativeLayout>
