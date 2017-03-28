@@ -18,4 +18,5 @@
         <item>ENIAC</item>
         <item>IAS Machine</item>
     </string-array>
+    <string name="vertical_timeline">Timeline</string>
 </resources>
