@@ -4,7 +4,19 @@
     <string name="transition_zoom_out">transitionZoomOut</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-    <string name="sample_question">This is a sample question. Choose one of the options or swipe in either of the four directions to make a choice.</string>
     <string name="about_us_event_description">Dummy Content.</string>
+    <string name="quiz_intro_heading">About This Quiz</string>
+    <string name="quiz_done_messgae">All Done!</string>
+    <string name="quiz_intro_body">This quiz will be live during the hackathon to determine the pitching
+        order of the different teams. The questions will be in MCQ format with four options each. For each question, drag
+        the question card to one of the 4 screen corners to make your choice.\n\nChoice 1: Top Left Corner
+        \nChoice 2: Top Right Corner\nChoice 3: Bottom Left Corner\nChoice 4: Bottom Right Corner</string>
+    <string name="sample_question">The first mechanical computer designed by Charles Babbage was called?</string>
+    <string-array name="sample_question_options">
+        <item>Abacus</item>
+        <item>Analytical Engine</item>
+        <item>ENIAC</item>
+        <item>IAS Machine</item>
+    </string-array>
     <string name="vertical_timeline">Timeline</string>
 </resources>
