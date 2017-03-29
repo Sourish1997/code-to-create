@@ -52,7 +52,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter {
         memberHolder.email.setText(memberEmails.get(position));
         if(position == 0)
             memberHolder.dividerTop.setBackgroundColor(0x00000000);
-        if(userAdded && position == 0)
+        if(userAdded && position == 0 && !(memberNames.size() == 1))
             memberHolder.dividerBottom.setBackgroundColor(0x22000000);
         if(isLeader.get(position)) {
             memberHolder.icon.setImageResource(R.drawable.ic_crown);

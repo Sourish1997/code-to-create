@@ -58,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferencesEditor = this.getSharedPreferences(Constants.sharedPreferenceName, Context.MODE_PRIVATE).edit();
         Realm.init(this);
         realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.deleteAll();
+        realm.commitTransaction();
     }
 
     @OnClick(R.id.link_guest_login)
