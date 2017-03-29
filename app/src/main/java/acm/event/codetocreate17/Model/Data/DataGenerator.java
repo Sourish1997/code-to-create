@@ -19,22 +19,22 @@ public class DataGenerator {
         String text[] = {"Innovate.Learn.", "Create."};
         return text[i];
     }
-    public String getQuestion(int i)
+    public String[] getQuestions()
     {
         String Ques[] = {"When will the Registration start?","What is the Registration Fees?","What about food and beverages?",
                 "Who all can participate?", "What are the skills required?" , "Is it an individual or team-challenge?"};
-        return Ques[i];
+        return Ques;
 
 
     }
-    public String getAnswer(int i)
+    public String[] getAnswers()
     {
         String Ans[] = {"We will open the registrations very soon! Keep following us.","Its free. All are welcome.",
                 "Its all on us! We would provide you with everything you need. We need you to concentrate on the code.",
                 "Students irrespective of their college/branch can take part in this event."
                 ,"Even if you don't know coding we will be having technical sessions before the event and mentors during the event."
                 ,"Its a team Challenge. It Should have a minimum of 2 and a maximum of 4 members."};
-        return Ans[i];
+        return Ans;
     }
     public static String getTimelineEvent(int i)
     {
@@ -45,7 +45,7 @@ public class DataGenerator {
     }
     public static String getTimelineDate(int i)
     {
-        String Date[] = {"2017-03-28 9:00","2017-03-28 18:00","2017-03-28 23:00","2017-04-14 9:00",
+        String Date[] = {"2017-03-28 9:00","2017-03-28 18:00","2017-03-28 23:00","2017-03-29 00:46",
                 "2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00","2017-04-14 9:00",
                 "2017-04-14 9:00","2017-04-14 9:00"};
         return Date[i];
