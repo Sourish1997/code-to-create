@@ -13,17 +13,20 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 
 public class RetroAPI{
     public interface ObservableAPIService {
+        @FormUrlEncoded
         @POST("session/create")
         Observable<JsonObject> signIn (
                 @Field("email") String unameoremail,
                 @Field("password") String password
         );
 
+        @FormUrlEncoded
         @POST("team/myteam")
         Observable<JsonObject> syncProfile(
                 @Field("id") String accessToken
@@ -31,6 +34,7 @@ public class RetroAPI{
     }
 
     public interface ValidityService {
+        @FormUrlEncoded
         @POST("session/checktoken")
         Call<ResponseBody> getAccessToken(
                 @Field("id") String authToken

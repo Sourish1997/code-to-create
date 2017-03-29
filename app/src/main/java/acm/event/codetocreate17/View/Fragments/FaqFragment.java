@@ -92,7 +92,6 @@ public class FaqFragment extends Fragment implements ScreenShotable {
                 FaqFragment.this.bitmap = bitmap;
             }
         });
-        //thread.start();
     }
 
     @Override

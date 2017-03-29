@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         list.add(menuItem1);
         SlideMenuItem menuItem2 = new SlideMenuItem("Timeline", R.drawable.ic_delivery_box_and_timer);
         list.add(menuItem2);
-        SlideMenuItem menuItem3 = new SlideMenuItem("Team", R.drawable.ic_workers_team);
+        SlideMenuItem menuItem3 = new SlideMenuItem("TeamMember", R.drawable.ic_workers_team);
         list.add(menuItem3);
         SlideMenuItem menuItem4 = new SlideMenuItem("Quiz", R.drawable.ic_notepad);
         list.add(menuItem4);
@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             case "Timeline":
                 getSupportActionBar().setTitle("Timeline");
                 return loadTimelineFragment();
-            case "Team":
-                getSupportActionBar().setTitle("My Team");
+            case "TeamMember":
+                getSupportActionBar().setTitle("My TeamMember");
                 return loadTeamFragment();
             case "FAQ":
                 getSupportActionBar().setTitle("FAQ");
