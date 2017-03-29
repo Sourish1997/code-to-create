@@ -15,20 +15,20 @@ import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
 public class QuestionViewHolder extends GroupViewHolder {
 
-  private TextView genreName;
+  private TextView question;
   private ImageView arrow;
 
 
   public QuestionViewHolder(View itemView) {
     super(itemView);
-    genreName = (TextView) itemView.findViewById(R.id.list_item_genre_name);
-    arrow = (ImageView) itemView.findViewById(R.id.list_item_genre_arrow);
+    question = (TextView) itemView.findViewById(R.id.faq_question_title);
+    arrow = (ImageView) itemView.findViewById(R.id.faq_question_arrow);
 
   }
 
   public void setGenreTitle(ExpandableGroup genre) {
 
-      genreName.setText(genre.getTitle());
+      question.setText(genre.getTitle());
 
     }
 

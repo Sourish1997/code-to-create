@@ -56,16 +56,9 @@ public class TimelineFragment extends Fragment implements ScreenShotable {
         View rootView = inflater.inflate(R.layout.fragment_timeline, container, false);
         ButterKnife.bind(this, rootView);
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        if(getSupportActionBar()!=null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
-
         mOrientation = DataGenerator.Orientation.VERTICAL;
         mWithLinePadding = false;
 
-        //setTitle(getResources().getString(R.string.vertical_timeline));
         mRecyclerView.setLayoutManager(getLinearLayoutManager());
         mRecyclerView.setHasFixedSize(true);
 
@@ -94,12 +87,12 @@ public class TimelineFragment extends Fragment implements ScreenShotable {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //Menu
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             //When home is clicked
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
