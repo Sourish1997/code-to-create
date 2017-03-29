@@ -65,11 +65,13 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.link_guest_login)
     public void onGuestLogin(View v) {
+        Constants.isGuest = true;
         loadMain();
     }
 
     @OnClick(R.id.login_button)
     public void onUserLogin(View v) {
+        Constants.isGuest = false;
         signin();
     }
 

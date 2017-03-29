@@ -1,5 +1,6 @@
 package acm.event.codetocreate17.View.Main;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acm.event.codetocreate17.R;
+import acm.event.codetocreate17.Utility.Utils.Constants;
+import acm.event.codetocreate17.View.Authentication.LoginActivity;
 import acm.event.codetocreate17.View.Fragments.AboutFragment;
 import acm.event.codetocreate17.View.Fragments.FaqFragment;
 import acm.event.codetocreate17.View.Fragments.QuizFragment;
@@ -66,8 +69,10 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         list.add(menuItem1);
         SlideMenuItem menuItem2 = new SlideMenuItem("Timeline", R.drawable.ic_delivery_box_and_timer);
         list.add(menuItem2);
-        SlideMenuItem menuItem3 = new SlideMenuItem("Team", R.drawable.ic_workers_team);
-        list.add(menuItem3);
+        if(!Constants.isGuest) {
+            SlideMenuItem menuItem3 = new SlideMenuItem("Team", R.drawable.ic_workers_team);
+            list.add(menuItem3);
+        }
         SlideMenuItem menuItem4 = new SlideMenuItem("Quiz", R.drawable.ic_notepad);
         list.add(menuItem4);
         SlideMenuItem menuItem5 = new SlideMenuItem("Coupons", R.drawable.ic_coupon);
@@ -78,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         list.add(menuItem7);
         SlideMenuItem menuItem8 = new SlideMenuItem("Sponsors", R.drawable.ic_shaking_hands);
         list.add(menuItem8);
+        SlideMenuItem menuItem9 = new SlideMenuItem("Logout", R.drawable.ic_log_out);
+        list.add(menuItem9);
     }
 
 
@@ -193,9 +200,17 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             case "Sponsors":
                 getSupportActionBar().setTitle("Sponsors");
                 return loadSponsorFragment();
+            case "Logout":
+                loadLogin();
             default:
                 return screenShotable;
         }
+    }
+
+    public void loadLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

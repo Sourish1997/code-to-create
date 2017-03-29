@@ -98,7 +98,7 @@ public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayo
             profileImage.setImageResource(R.drawable.av_male);
 
         if(user.hasTeam) {
-            teamNameTextView.setText(user.teamName);
+            teamNameTextView.setText(user.teamName.substring(0, 1).toUpperCase() + user.teamName.substring(1));
             for (int i = 0; i < user.noOfMembers; i++) {
                 memberNames.add(i, user.teamMembers.get(i).name);
                 memberEmails.add(i, user.teamMembers.get(i).email);

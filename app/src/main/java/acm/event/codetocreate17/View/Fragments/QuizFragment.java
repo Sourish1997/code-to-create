@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.wenchao.cardstack.CardStack;
 import acm.event.codetocreate17.Model.Data.QuizQuestionModel;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.SwipeCardAdapter;
+import acm.event.codetocreate17.Utility.Utils.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -139,12 +141,17 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     @OnClick(R.id.quiz_start_button)
     public void onStartRequest(View v) {
-        Animation slideOutAnimation  = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_out);
-        quizIntro.startAnimation(slideOutAnimation);
-        quizIntro.setVisibility(View.INVISIBLE);
-        questionStack.setVisibility(View.VISIBLE);
-        Animation slideInAnimation  = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.grow);
-        questionStack.startAnimation(slideInAnimation);
+        if(Constants.isGuest) {
+            Snackbar snackbar = Snackbar.make(quizContainer, "Sign in with an admin account to take this quiz.", Snackbar.LENGTH_LONG);
+            snackbar.show();
+        } else {
+            Animation slideOutAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_out);
+            quizIntro.startAnimation(slideOutAnimation);
+            quizIntro.setVisibility(View.INVISIBLE);
+            questionStack.setVisibility(View.VISIBLE);
+            Animation slideInAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.grow);
+            questionStack.startAnimation(slideInAnimation);
+        }
     }
 
     @Override
