@@ -14,7 +14,7 @@ public class AnswerViewHolder extends ChildViewHolder {
 
   public AnswerViewHolder(View itemView) {
     super(itemView);
-    childTextView = (TextView) itemView.findViewById(R.id.list_item_artist_name);
+    childTextView = (TextView) itemView.findViewById(R.id.faq_answer_text);
   }
 
   public void setArtistName(String name) {
