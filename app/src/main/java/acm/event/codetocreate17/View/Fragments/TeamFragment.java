@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -12,13 +13,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import acm.event.codetocreate17.Model.RealmModels.User;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.MemberRecyclerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+import io.realm.Realm;
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
@@ -29,11 +35,28 @@ public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayo
     RecyclerView membersList;
     @BindView(R.id.team_appbar)
     AppBarLayout appBar;
+    @BindView(R.id.team_username)
+    TextView usernameTextView;
+    @BindView(R.id.team_email_id)
+    TextView emailTextView;
+    @BindView(R.id.team_name)
+    TextView teamNameTextView;
+    @BindView(R.id.team_user_crown)
+    ImageView crownImage;
+    @BindView(R.id.team_profile_image)
+    CircleImageView profileImage;
 
     MemberRecyclerAdapter membersAdapter;
     ArrayList<String> memberNames;
     ArrayList<String> memberEmails;
+    ArrayList<Boolean> isLeader;
     boolean userAdded = false;
+
+    Realm realm;
+    User user;
+    String username;
+    String email;
+    boolean userIsLeader;
 
     private Bitmap bitmap;
 
@@ -54,14 +77,38 @@ public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayo
 
         memberNames = new ArrayList<>();
         memberEmails = new ArrayList<>();
+        isLeader = new ArrayList<>();
 
-        //TODO: Replace with response from server
-        for(int i = 0; i < 3; i++) {
-            memberNames.add(i, "Firstname Lastname");
-            memberEmails.add(i, "myname@example.com");
+        Realm.init(this.getActivity());
+        realm = Realm.getDefaultInstance();
+        user = realm.where(User.class).findFirst();
+        username = user.name;
+        email = user.email;
+        usernameTextView.setText(username);
+        emailTextView.setText(email);
+        userIsLeader = user.isLeader;
+        if(!user.isLeader) {
+            crownImage.setLayoutParams(new ConstraintLayout.LayoutParams(1, 1));
+            crownImage.setImageResource(R.drawable.ic_block);
         }
 
-        membersAdapter = new MemberRecyclerAdapter(memberNames, memberEmails);
+        if(user.gender.equals("female"))
+            profileImage.setImageResource(R.drawable.av_female);
+        else
+            profileImage.setImageResource(R.drawable.av_male);
+
+        if(user.hasTeam) {
+            teamNameTextView.setText(user.teamName);
+            for (int i = 0; i < user.noOfMembers; i++) {
+                memberNames.add(i, user.teamMembers.get(i).name);
+                memberEmails.add(i, user.teamMembers.get(i).email);
+                isLeader.add(i, user.teamMembers.get(i).isLeader);
+            }
+        } else {
+            teamNameTextView.setText("No Team!");
+        }
+
+        membersAdapter = new MemberRecyclerAdapter(memberNames, memberEmails, isLeader);
         membersList.setAdapter(membersAdapter);
         membersList.setLayoutManager(new LinearLayoutManager(membersList.getContext()));
         membersList.setItemAnimator(new FadeInLeftAnimator());
@@ -87,7 +134,7 @@ public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayo
         float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
 
         if(percentage > 0.7 && !userAdded) {
-            membersAdapter.addUserToTeamView("Sourish Banerjee", "sourish.banerjeee@gmail.com", 0);
+            membersAdapter.addUserToTeamView(username, email, userIsLeader, 0);
             userAdded = true;
         }
 

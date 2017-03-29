@@ -16,22 +16,26 @@ import acm.event.codetocreate17.R;
 public class MemberRecyclerAdapter extends RecyclerView.Adapter {
     ArrayList<String> memberNames;
     ArrayList<String> memberEmails;
+    ArrayList<Boolean> isLeader;
     boolean userAdded = false;
 
-    public MemberRecyclerAdapter(ArrayList<String> memberNames, ArrayList<String> memberEmails) {
+    public MemberRecyclerAdapter(ArrayList<String> memberNames, ArrayList<String> memberEmails, ArrayList<Boolean> isLeader) {
         this.memberNames = memberNames;
         this.memberEmails = memberEmails;
+        this.isLeader = isLeader;
     }
 
     public void removeUserFromTeamView(int position) {
         memberNames.remove(position);
         memberEmails.remove(position);
+        isLeader.remove(position);
         notifyItemRemoved(position);
     }
 
-    public void addUserToTeamView(String name, String email, int position) {
+    public void addUserToTeamView(String name, String email, boolean isLeader, int position) {
         memberNames.add(position, name);
         memberEmails.add(position, email);
+        this.isLeader.add(position, isLeader);
         notifyItemInserted(position);
         userAdded = true;
     }
@@ -50,6 +54,11 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter {
             memberHolder.dividerTop.setBackgroundColor(0x00000000);
         if(userAdded && position == 0)
             memberHolder.dividerBottom.setBackgroundColor(0x22000000);
+        if(isLeader.get(position)) {
+            memberHolder.icon.setImageResource(R.drawable.ic_crown);
+        } else {
+            memberHolder.icon.setImageResource(R.drawable.ic_block);
+        }
     }
 
     @Override

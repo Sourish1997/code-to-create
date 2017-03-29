@@ -166,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                             user.teamName = jsonObject.get("teamName").getAsString();
                             JsonArray teamMembers = jsonObject.getAsJsonArray("teammembers");
                             JsonArray teamMemberEmails = jsonObject.getAsJsonArray("teammembersemail");
+                            user.noOfMembers = teamMembers.size() - 1;
                             for(int i = 0; i < teamMembers.size(); i++) {
                                 TeamMember teamMember = new TeamMember();
                                 teamMember.name = teamMembers.get(i).getAsString();
@@ -186,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                             User user = realm.where(User.class).findFirst();
                             realm.beginTransaction();
                             user.hasTeam = false;
+                            user.isLeader = false;
                             realm.copyToRealmOrUpdate(user);
                             realm.commitTransaction();
                         }

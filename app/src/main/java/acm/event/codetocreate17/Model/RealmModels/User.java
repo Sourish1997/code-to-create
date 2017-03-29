@@ -16,5 +16,6 @@ public class User extends RealmObject{
     public boolean hasTeam;
     public String teamName;
     public boolean isLeader;
+    public int noOfMembers;
     public RealmList<TeamMember> teamMembers;
 }
