@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+
 import java.util.ArrayList;
 
 import acm.event.codetocreate17.Model.Data.DataGenerator;
@@ -54,6 +56,7 @@ public class FaqFragment extends Fragment implements ScreenShotable {
         ButterKnife.bind(this, rootView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
 
         RecyclerView.ItemAnimator animator = recyclerView.getItemAnimator();
         if (animator instanceof DefaultItemAnimator) {

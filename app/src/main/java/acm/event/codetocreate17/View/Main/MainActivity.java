@@ -19,6 +19,7 @@ import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.View.Fragments.AboutFragment;
 import acm.event.codetocreate17.View.Fragments.FaqFragment;
 import acm.event.codetocreate17.View.Fragments.QuizFragment;
+import acm.event.codetocreate17.View.Fragments.SponsorFragment;
 import acm.event.codetocreate17.View.Fragments.TeamFragment;
 import acm.event.codetocreate17.View.Fragments.TimelineFragment;
 import butterknife.BindView;
@@ -125,6 +126,13 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         return faqFragment;
     }
 
+    public ScreenShotable loadSponsorFragment() {
+        SponsorFragment sponsorFragment = new SponsorFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, sponsorFragment).commit();
+        return sponsorFragment;
+    }
+
+
     public ScreenShotable loadAboutFragment() {
         AboutFragment aboutFragment = new AboutFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, aboutFragment).commit();
@@ -182,6 +190,9 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             case "Quiz":
                 getSupportActionBar().setTitle("Quiz");
                 return loadQuizFragment();
+            case "Sponsors":
+                getSupportActionBar().setTitle("Sponsors");
+                return loadSponsorFragment();
             default:
                 return screenShotable;
         }

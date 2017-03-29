@@ -18,5 +18,6 @@
         <item>ENIAC</item>
         <item>IAS Machine</item>
     </string-array>
+    <string name="about_us_header">Code To Create \'17</string>
     <string name="vertical_timeline">Timeline</string>
 </resources>

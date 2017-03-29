@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/faq_answer_card"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    app:cardBackgroundColor="@color/colorPrimary">
 
   <android.support.constraint.ConstraintLayout
       android:id="@+id/faq_answer_layout"
