@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import acm.event.codetocreate17.R;
+
 /**
  * Created by Sourish on 19-03-2017.
  */
@@ -76,6 +78,21 @@ public class DataGenerator {
             return OrderStatus.INACTIVE;
         }
     }
+    public static String getSponsorTitle(int i)
+    {
+        String title[] = {"Title Sponsor","Title Sponsor","Cloud Patner","Online Patner"};
+        return title[i];
+
+    }
+
+    public static int pathToImage(int i)
+    {
+        int title[] = {R.drawable.aisec_tt,R.drawable.oil_t,R.drawable.digitalocean,R.drawable.hackerrank};
+        return title[i];
+
+    }
+
+
 
     public enum OrderStatus {
 

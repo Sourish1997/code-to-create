@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.RelativeLayout;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +62,7 @@ public class FaqFragment extends Fragment implements ScreenShotable {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-        // RecyclerView has some built in animations to it, using the DefaultItemAnimator.
-        // Specifically when you call notifyItemChanged() it does a fade animation for the changing
-        // of the data in the ViewHolder. If you would like to disable this you can use the following:
+
         RecyclerView.ItemAnimator animator = recyclerView.getItemAnimator();
         if (animator instanceof DefaultItemAnimator) {
             ((DefaultItemAnimator) animator).setSupportsChangeAnimations(false);
