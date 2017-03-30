@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/card1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    card_view:contentPadding="@dimen/expandable_recycler_padding">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/about_list_item_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_weight="0.8"
+            android:textColor="@color/textColorSecondary"
+            android:text="Message"/>
+
+        <ImageView
+            android:layout_width="@dimen/expandable_arrow_size"
+            android:layout_height="@dimen/expandable_arrow_size"
+
+            android:layout_weight="0.2"
+            card_view:srcCompat="@drawable/ic_arrow_down" />
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_below="@id/card1"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="36dp"
+        android:alpha="0.3"
+        android:background="@color/colorPrimaryDark" />
+
+</RelativeLayout>
