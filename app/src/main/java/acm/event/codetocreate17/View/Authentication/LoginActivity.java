@@ -76,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signin(){
-        Log.e("message", "Inside sign in");
         loginButton.setText("SIGNING IN...");
         loginButton.setClickable(false);
         String username = usernameEditText.getText().toString();
@@ -135,7 +134,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void syncProfile() {
         String accessToken = Constants.accessToken;
-        Log.e("message", accessToken);
         retroAPI.observableAPIService.syncProfile(accessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -162,7 +160,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onNext(JsonObject jsonObject) {
                         if(jsonObject.get("success").getAsBoolean()){
-                            Log.e("message", "Inside syncProf");
                             User user = realm.where(User.class).findFirst();
                             realm.beginTransaction();
                             user.hasTeam = true;

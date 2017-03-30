@@ -1,6 +1,7 @@
 package acm.event.codetocreate17.View.Landing;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +9,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import acm.event.codetocreate17.Utility.Utils.Constants;
 import acm.event.codetocreate17.View.Authentication.LoginActivity;
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.CustomViews.Typewriter;
+import acm.event.codetocreate17.View.Main.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,6 +33,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
 
     private boolean shouldFinish = false;
     private Thread animationThread;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,11 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
         setContentView(R.layout.activity_splash);
 
         ButterKnife.bind(this);
+
+        sharedPreferences = getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
+        boolean loggedin = sharedPreferences.getBoolean("loggedin", false);
+        if(loggedin)
+            loadMain();
 
         fadeInAnimation  = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 
@@ -119,6 +128,12 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
                 }
         });
         animationThread.start();
+    }
+
+    public void loadMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void loadLogin() {

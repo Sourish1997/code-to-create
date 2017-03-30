@@ -1,21 +1,33 @@
 package acm.event.codetocreate17.View.Main;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import acm.event.codetocreate17.Model.RealmModels.TeamMember;
+import acm.event.codetocreate17.Model.RealmModels.User;
+import acm.event.codetocreate17.Model.RetroAPI.RetroAPI;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Utils.Constants;
 import acm.event.codetocreate17.View.Authentication.LoginActivity;
@@ -27,8 +39,14 @@ import acm.event.codetocreate17.View.Fragments.TeamFragment;
 import acm.event.codetocreate17.View.Fragments.TimelineFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
+import io.realm.Realm;
+import io.realm.RealmList;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import yalantis.com.sidemenu.interfaces.Resourceble;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import yalantis.com.sidemenu.model.SlideMenuItem;
@@ -40,10 +58,18 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
     DrawerLayout drawerLayout;
     @BindView(R.id.main_drawer)
     LinearLayout drawerLinearLayout;
+    @BindView(R.id.refresh_button)
+    ImageButton refreshButton;
 
     private ActionBarDrawerToggle drawerToggle;
     private List<SlideMenuItem> list = new ArrayList<>();
     private ViewAnimator viewAnimator;
+    private ProgressDialog dialog;
+    private String currentFragmentName = "Timeline";
+
+    Realm realm;
+    RetroAPI retroAPI;
+    SharedPreferences.Editor sharedPreferencesEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +84,16 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             }
         });
 
+        if(Constants.isGuest)
+            refreshButton.setVisibility(View.INVISIBLE);
+
         setActionBar();
         createMenuList();
 
+        Realm.init(this);
+        realm = Realm.getDefaultInstance();
+        retroAPI = new RetroAPI();
+        sharedPreferencesEditor = this.getSharedPreferences(Constants.sharedPreferenceName, Context.MODE_PRIVATE).edit();
         viewAnimator = new ViewAnimator<>(this, list, loadTimelineFragment(), drawerLayout, this);
     }
 
@@ -177,8 +210,12 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
 
     @Override
     public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
-        if(!slideMenuItem.getName().equals("Close"))
+        if(slideMenuItem.getName().equals(currentFragmentName))
+            return screenShotable;
+        if(!slideMenuItem.getName().equals("Close")) {
             replaceFragmentAnimation(screenShotable, position);
+            currentFragmentName = slideMenuItem.getName();
+        }
         switch (slideMenuItem.getName()) {
             case "Close":
                 return screenShotable;
@@ -201,6 +238,8 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                 getSupportActionBar().setTitle("Sponsors");
                 return loadSponsorFragment();
             case "Logout":
+                sharedPreferencesEditor.putBoolean("loggedin", false);
+                sharedPreferencesEditor.commit();
                 loadLogin();
             default:
                 return screenShotable;
@@ -213,6 +252,11 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         finish();
     }
 
+    @OnClick(R.id.refresh_button)
+    public void refresh(View v) {
+        syncProfile();
+    }
+
     @Override
     public void disableHomeButton() {
         getSupportActionBar().setHomeButtonEnabled(false);
@@ -222,11 +266,79 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
     public void enableHomeButton() {
         getSupportActionBar().setHomeButtonEnabled(true);
         drawerLayout.closeDrawers();
-
     }
 
     @Override
     public void addViewToContainer(View view) {
         drawerLinearLayout.addView(view);
+    }
+
+    public void syncProfile() {
+        String accessToken = Constants.accessToken;
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setMessage("Refreshing...");
+        dialog.show();
+        retroAPI.observableAPIService.syncProfile(accessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JsonObject>() {
+
+                    @Override
+                    public void onCompleted() {}
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dialog.dismiss();
+                        Snackbar snackbar = Snackbar
+                                .make(drawerLayout, "Could not connect to server", Snackbar.LENGTH_LONG)
+                                .setAction("RETRY", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        syncProfile();
+                                    }
+                                });
+                        snackbar.show();
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        if(jsonObject.get("success").getAsBoolean()){
+                            Log.e("message", "Inside syncProf");
+                            User user = realm.where(User.class).findFirst();
+                            realm.beginTransaction();
+                            user.hasTeam = true;
+                            String leader = jsonObject.get("ADMIN").getAsString();
+                            user.isLeader = jsonObject.get("admin").getAsBoolean();
+                            user.teamName = jsonObject.get("teamName").getAsString();
+                            JsonArray teamMembers = jsonObject.getAsJsonArray("teammembers");
+                            JsonArray teamMemberEmails = jsonObject.getAsJsonArray("teammembersemail");
+                            user.noOfMembers = teamMembers.size() - 1;
+                            for(int i = 0; i < teamMembers.size(); i++) {
+                                TeamMember teamMember = new TeamMember();
+                                teamMember.name = teamMembers.get(i).getAsString();
+                                if(teamMember.name.equals(user.name))
+                                    continue;
+                                teamMember.email = teamMemberEmails.get(i).getAsString();
+                                if(teamMember.name.equals(leader))
+                                    teamMember.isLeader = true;
+                                else
+                                    teamMember.isLeader = false;
+                                if(user.teamMembers == null)
+                                    user.teamMembers = new RealmList<>();
+                                user.teamMembers.add(teamMember);
+                            }
+                            realm.copyToRealmOrUpdate(user);
+                            realm.commitTransaction();
+                        } else {
+                            User user = realm.where(User.class).findFirst();
+                            realm.beginTransaction();
+                            user.hasTeam = false;
+                            user.isLeader = false;
+                            realm.copyToRealmOrUpdate(user);
+                            realm.commitTransaction();
+                        }
+                        dialog.dismiss();
+                    }
+                });
     }
 }
