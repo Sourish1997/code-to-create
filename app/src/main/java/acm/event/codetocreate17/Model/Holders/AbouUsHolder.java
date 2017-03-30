@@ -8,7 +8,7 @@ public class AbouUsHolder {
 
     private String name;
     private String designation;
-    private Boolean isContact;
+    private Boolean isContact=false;
     private int imageResource;
 
 
