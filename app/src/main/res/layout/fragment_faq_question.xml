@@ -6,7 +6,9 @@
     android:id="@+id/faq_question_card"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    app:cardBackgroundColor="@color/colorPrimary">
+    android:layout_marginLeft="@dimen/card_horizontal_margin"
+    android:layout_marginRight="@dimen/card_horizontal_margin"
+    app:cardBackgroundColor="#3a3a3a">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/faq_question_item"
@@ -30,14 +32,15 @@
             android:layout_height="20dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
-            android:textColor="@color/colorAccent"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:gravity="center_vertical"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/faq_separator"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Question"
-            android:layout_marginStart="16dp" />
+            tools:text="Question" />
 
         <ImageView
             android:id="@+id/faq_question_arrow"
@@ -52,8 +55,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_arrow_down" />
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp" />
 
     </android.support.constraint.ConstraintLayout>
 

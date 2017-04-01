@@ -5,7 +5,7 @@ package acm.event.codetocreate17.Utility.Utils;
  */
 
 public abstract class Constants {
-    public static final String baseUrl = "http://androidc2c.herokuapp.com/";
+    public static final String baseUrl = "http://androidc2cc.herokuapp.com/";
     public static final String sharedPreferenceName = "C2C_PREF";
     public static String accessToken = "Unauthorized";
     public static boolean isGuest = false;

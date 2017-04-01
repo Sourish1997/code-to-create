@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
     private ViewAnimator viewAnimator;
     private ProgressDialog dialog;
     private String currentFragmentName = "Timeline";
+    private String currentFragmentTag = "Timeline";
 
     Realm realm;
     RetroAPI retroAPI;
@@ -221,21 +222,27 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                 return screenShotable;
             case "Timeline":
                 getSupportActionBar().setTitle("Timeline");
+                currentFragmentTag = "Timeline";
                 return loadTimelineFragment();
             case "Team":
                 getSupportActionBar().setTitle("My Team");
+                currentFragmentTag = "Team";
                 return loadTeamFragment();
             case "FAQ":
                 getSupportActionBar().setTitle("FAQ");
+                currentFragmentTag = "FAQ";
                 return loadFaqFragment();
             case "About Us":
                 getSupportActionBar().setTitle("About Us");
+                currentFragmentTag = "About Us";
                 return loadAboutFragment();
             case "Quiz":
                 getSupportActionBar().setTitle("Quiz");
+                currentFragmentTag = "Quiz";
                 return loadQuizFragment();
             case "Sponsors":
                 getSupportActionBar().setTitle("Sponsors");
+                currentFragmentTag = "Sponsors";
                 return loadSponsorFragment();
             case "Logout":
                 sharedPreferencesEditor.putBoolean("loggedin", false);
@@ -273,6 +280,28 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         drawerLinearLayout.addView(view);
     }
 
+    public void refreshFragment() {
+        switch (currentFragmentName) {
+            case "Timeline":
+                loadTimelineFragment();
+                break;
+            case "Team":
+                loadTeamFragment();
+                break;
+            case "FAQ":
+                loadFaqFragment();
+                break;
+            case "About Us":
+                loadAboutFragment();
+                break;
+            case "Quiz":
+                loadQuizFragment();
+                break;
+            case "Sponsors":
+                loadSponsorFragment();
+        }
+    }
+
     public void syncProfile() {
         String accessToken = Constants.accessToken;
         dialog = new ProgressDialog(MainActivity.this);
@@ -298,6 +327,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                                     }
                                 });
                         snackbar.show();
+                        refreshFragment();
                     }
 
                     @Override
@@ -337,6 +367,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                             realm.copyToRealmOrUpdate(user);
                             realm.commitTransaction();
                         }
+                        refreshFragment();
                         dialog.dismiss();
                     }
                 });
