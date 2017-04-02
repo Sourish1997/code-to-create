@@ -12,8 +12,8 @@ import java.util.List;
 import acm.event.codetocreate17.Model.Holders.AnswerViewHolder;
 import acm.event.codetocreate17.Model.Holders.QuestionViewHolder;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Utility.Utils.Answer;
-import acm.event.codetocreate17.Utility.Utils.Question;
+import acm.event.codetocreate17.Model.Data.FaqAnswerModel;
+import acm.event.codetocreate17.Model.Data.FaqQuestionModel;
 
 public class QuestionAdapter extends ExpandableRecyclerViewAdapter<QuestionViewHolder, AnswerViewHolder> {
 
@@ -39,7 +39,7 @@ public class QuestionAdapter extends ExpandableRecyclerViewAdapter<QuestionViewH
   public void onBindChildViewHolder(AnswerViewHolder holder, int flatPosition,
                                     ExpandableGroup group, int childIndex) {
 
-    final Answer answer = ((Question) group).getItems().get(childIndex);
+    final FaqAnswerModel answer = ((FaqQuestionModel) group).getItems().get(childIndex);
     holder.setArtistName(answer.getName());
   }
 

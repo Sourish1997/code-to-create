@@ -30,7 +30,7 @@ import static acm.event.codetocreate17.R.id.view;
  * Created by Shikher on 31-03-2017.
  */
 
-public class AboutUsRecyclerAdapter  {
+public class AboutAdapter {
     public static class MyAdapter extends ExpandableRecyclerAdapter<MyAdapter.GroupViewHolder, MyAdapter.ItemViewHolder> {
 
         private LayoutInflater mInflator;

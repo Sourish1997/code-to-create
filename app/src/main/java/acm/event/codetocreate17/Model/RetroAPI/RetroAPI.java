@@ -6,7 +6,7 @@ package acm.event.codetocreate17.Model.RetroAPI;
 
 import com.google.gson.JsonObject;
 
-import acm.event.codetocreate17.Utility.Utils.Constants;
+import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;

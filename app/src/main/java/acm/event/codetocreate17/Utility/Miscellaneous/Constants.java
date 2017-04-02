@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.Utility.Utils;
+package acm.event.codetocreate17.Utility.Miscellaneous;
 
 /**
  * Created by Sourish on 28-03-2017.

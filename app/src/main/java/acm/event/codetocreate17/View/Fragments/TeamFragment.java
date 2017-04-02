@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import acm.event.codetocreate17.Model.RealmModels.User;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Utility.Adapters.MemberRecyclerAdapter;
+import acm.event.codetocreate17.Utility.Adapters.TeamMemberAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -46,7 +46,7 @@ public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayo
     @BindView(R.id.team_profile_image)
     CircleImageView profileImage;
 
-    MemberRecyclerAdapter membersAdapter;
+    TeamMemberAdapter membersAdapter;
     ArrayList<String> memberNames;
     ArrayList<String> memberEmails;
     ArrayList<Boolean> isLeader;
@@ -108,7 +108,7 @@ public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayo
             teamNameTextView.setText("No Team!");
         }
 
-        membersAdapter = new MemberRecyclerAdapter(memberNames, memberEmails, isLeader);
+        membersAdapter = new TeamMemberAdapter(memberNames, memberEmails, isLeader);
         membersList.setAdapter(membersAdapter);
         membersList.setLayoutManager(new LinearLayoutManager(membersList.getContext()));
         membersList.setItemAnimator(new FadeInLeftAnimator());

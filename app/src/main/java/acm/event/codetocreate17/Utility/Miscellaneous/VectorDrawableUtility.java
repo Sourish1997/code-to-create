@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.Utility.Utils;
+package acm.event.codetocreate17.Utility.Miscellaneous;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,7 +9,7 @@ import android.os.Build;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 
-public class VectorDrawableUtils {
+public class VectorDrawableUtility {
 
     public static Drawable getDrawable(Context context, int drawableResId) {
         Drawable drawable;

@@ -1,18 +1,18 @@
-package acm.event.codetocreate17.Utility.Utils;
+package acm.event.codetocreate17.Model.Data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Answer implements Parcelable {
+public class FaqAnswerModel implements Parcelable {
 
   private String name;
 
 
-  public Answer(String name) {
+  public FaqAnswerModel(String name) {
     this.name = name;
   }
 
-  protected Answer(Parcel in) {
+  protected FaqAnswerModel(Parcel in) {
     name = in.readString();
   }
 
@@ -25,9 +25,9 @@ public class Answer implements Parcelable {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof Answer)) return false;
+    if (!(o instanceof FaqAnswerModel)) return false;
 
-    Answer answer = (Answer) o;
+    FaqAnswerModel answer = (FaqAnswerModel) o;
 
 
     return getName() != null ? getName().equals(answer.getName()) : answer.getName() == null;
@@ -51,15 +51,15 @@ public class Answer implements Parcelable {
     return 0;
   }
 
-  public static final Creator<Answer> CREATOR = new Creator<Answer>() {
+  public static final Creator<FaqAnswerModel> CREATOR = new Creator<FaqAnswerModel>() {
     @Override
-    public Answer createFromParcel(Parcel in) {
-      return new Answer(in);
+    public FaqAnswerModel createFromParcel(Parcel in) {
+      return new FaqAnswerModel(in);
     }
 
     @Override
-    public Answer[] newArray(int size) {
-      return new Answer[size];
+    public FaqAnswerModel[] newArray(int size) {
+      return new FaqAnswerModel[size];
     }
   };
 }

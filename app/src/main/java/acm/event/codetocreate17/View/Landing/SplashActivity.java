@@ -9,7 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import acm.event.codetocreate17.Utility.Utils.Constants;
+import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import acm.event.codetocreate17.View.Authentication.LoginActivity;
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;

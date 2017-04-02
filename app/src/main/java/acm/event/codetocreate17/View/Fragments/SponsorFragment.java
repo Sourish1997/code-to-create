@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Utility.Adapters.SponsorRecyclerViewAdapter;
+import acm.event.codetocreate17.Utility.Adapters.SponsorAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
@@ -45,7 +45,7 @@ public class SponsorFragment extends Fragment implements ScreenShotable {
         ButterKnife.bind(this, rootView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new SponsorRecyclerViewAdapter(getDataSet());
+        mAdapter = new SponsorAdapter(getDataSet());
         recyclerView.setAdapter(mAdapter);
 
         return rootView;

@@ -20,7 +20,7 @@ import acm.event.codetocreate17.Model.RealmModels.TeamMember;
 import acm.event.codetocreate17.Model.RealmModels.User;
 import acm.event.codetocreate17.Model.RetroAPI.RetroAPI;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Utility.Utils.Constants;
+import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import acm.event.codetocreate17.View.Main.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;

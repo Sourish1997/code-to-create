@@ -13,13 +13,13 @@ import acm.event.codetocreate17.R;
  * Created by Sourish on 26-03-2017.
  */
 
-public class MemberRecyclerAdapter extends RecyclerView.Adapter {
+public class TeamMemberAdapter extends RecyclerView.Adapter {
     ArrayList<String> memberNames;
     ArrayList<String> memberEmails;
     ArrayList<Boolean> isLeader;
     boolean userAdded = false;
 
-    public MemberRecyclerAdapter(ArrayList<String> memberNames, ArrayList<String> memberEmails, ArrayList<Boolean> isLeader) {
+    public TeamMemberAdapter(ArrayList<String> memberNames, ArrayList<String> memberEmails, ArrayList<Boolean> isLeader) {
         this.memberNames = memberNames;
         this.memberEmails = memberEmails;
         this.isLeader = isLeader;

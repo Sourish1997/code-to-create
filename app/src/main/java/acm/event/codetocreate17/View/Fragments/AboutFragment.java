@@ -26,7 +26,7 @@ import java.util.List;
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;
 
-import acm.event.codetocreate17.Utility.Adapters.AboutUsRecyclerAdapter;
+import acm.event.codetocreate17.Utility.Adapters.AboutAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
@@ -40,7 +40,7 @@ public class AboutFragment extends Fragment implements ScreenShotable {
 
     private Bitmap bitmap;
     private List<Group> groupList;
-    private AboutUsRecyclerAdapter.MyAdapter myAdapter;
+    private AboutAdapter.MyAdapter myAdapter;
 
 
     @Override
@@ -74,7 +74,7 @@ public class AboutFragment extends Fragment implements ScreenShotable {
         groupList.add(DataGenerator.getFacultyOrganaiser(this));
         groupList.add(DataGenerator.getStudentOrganiser(this));
         groupList.add(DataGenerator.getContacts(this));
-        myAdapter = new AboutUsRecyclerAdapter.MyAdapter(getContext(), groupList);
+        myAdapter = new AboutAdapter.MyAdapter(getContext(), groupList);
         aboutRecyclerView.setAdapter(myAdapter);
     }
 

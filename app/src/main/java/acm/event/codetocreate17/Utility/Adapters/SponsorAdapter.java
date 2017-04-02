@@ -13,7 +13,7 @@ import android.widget.TextView;
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;
 
-public class SponsorRecyclerViewAdapter extends RecyclerView.Adapter<SponsorRecyclerViewAdapter.MyViewHolder> {
+public class SponsorAdapter extends RecyclerView.Adapter<SponsorAdapter.MyViewHolder> {
 
     private List<DataGenerator> sponsorsList;
 
@@ -33,7 +33,7 @@ public class SponsorRecyclerViewAdapter extends RecyclerView.Adapter<SponsorRecy
     }
 
 
-    public SponsorRecyclerViewAdapter(List<DataGenerator> sponsorsList) {
+    public SponsorAdapter(List<DataGenerator> sponsorsList) {
         this.sponsorsList = sponsorsList;
     }
 

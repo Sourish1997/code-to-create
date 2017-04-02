@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.QuestionAdapter;
-import acm.event.codetocreate17.Utility.Utils.Answer;
-import acm.event.codetocreate17.Utility.Utils.Question;
+import acm.event.codetocreate17.Model.Data.FaqAnswerModel;
+import acm.event.codetocreate17.Model.Data.FaqQuestionModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
@@ -63,15 +63,15 @@ public class FaqFragment extends Fragment implements ScreenShotable {
             ((DefaultItemAnimator) animator).setSupportsChangeAnimations(false);
         }
 
-        ArrayList<Question> finalQuestions = new ArrayList<>();
+        ArrayList<FaqQuestionModel> finalQuestions = new ArrayList<>();
         DataGenerator dataGenerator = new DataGenerator();
         String[] questions = dataGenerator.getQuestions();
         String[] answers = dataGenerator.getAnswers();
 
         for(int i = 0; i < questions.length; i++) {
-            ArrayList<Answer> answer = new ArrayList<>();
-            answer.add(new Answer(answers[i]));
-            Question question = new Question(questions[i], answer);
+            ArrayList<FaqAnswerModel> answer = new ArrayList<>();
+            answer.add(new FaqAnswerModel(answers[i]));
+            FaqQuestionModel question = new FaqQuestionModel(questions[i], answer);
             finalQuestions.add(question);
         }
 

@@ -22,7 +22,7 @@ import com.wenchao.cardstack.CardStack;
 import acm.event.codetocreate17.Model.Data.QuizQuestionModel;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.SwipeCardAdapter;
-import acm.event.codetocreate17.Utility.Utils.Constants;
+import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -1,4 +1,4 @@
-package acm.event.codetocreate17.Utility.Utils;
+package acm.event.codetocreate17.Utility.Miscellaneous;
 
 import android.text.format.DateUtils;
 
@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateTimeUtils {
+public class DateTimeUtility {
 
     public static String parseDateTime(String dateString, String originalFormat, String outputFromat){
 
