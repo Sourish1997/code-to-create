@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -13,8 +14,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -58,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
     DrawerLayout drawerLayout;
     @BindView(R.id.main_drawer)
     LinearLayout drawerLinearLayout;
+    @BindView(R.id.main_content_frame)
+    LinearLayout revealContainer;
+    @BindView(R.id.main_content_overlay)
+    LinearLayout revealOverlay;
     @BindView(R.id.refresh_button)
     ImageButton refreshButton;
 
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
     private ViewAnimator viewAnimator;
     private ProgressDialog dialog;
     private String currentFragmentName = "Timeline";
-    private String currentFragmentTag = "Timeline";
+    private boolean refreshed= false;
 
     Realm realm;
     RetroAPI retroAPI;
@@ -85,8 +90,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             }
         });
 
-        if(Constants.isGuest)
-            refreshButton.setVisibility(View.INVISIBLE);
+        refreshButton.setVisibility(View.INVISIBLE);
 
         setActionBar();
         createMenuList();
@@ -211,38 +215,40 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
 
     @Override
     public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+        revealOverlay.setVisibility(View.VISIBLE);
         if(slideMenuItem.getName().equals(currentFragmentName))
             return screenShotable;
         if(!slideMenuItem.getName().equals("Close")) {
             replaceFragmentAnimation(screenShotable, position);
             currentFragmentName = slideMenuItem.getName();
+            refreshButton.setVisibility(View.INVISIBLE);
+        }
+        if(refreshed) {
+            BitmapDrawable appImage = new BitmapDrawable(takeScreenShot(revealContainer));
+            revealOverlay.setBackground(appImage);
+            refreshed = false;
         }
         switch (slideMenuItem.getName()) {
             case "Close":
                 return screenShotable;
             case "Timeline":
                 getSupportActionBar().setTitle("Timeline");
-                currentFragmentTag = "Timeline";
                 return loadTimelineFragment();
             case "Team":
                 getSupportActionBar().setTitle("My Team");
-                currentFragmentTag = "Team";
+                refreshButton.setVisibility(View.VISIBLE);
                 return loadTeamFragment();
             case "FAQ":
                 getSupportActionBar().setTitle("FAQ");
-                currentFragmentTag = "FAQ";
                 return loadFaqFragment();
             case "About Us":
                 getSupportActionBar().setTitle("About Us");
-                currentFragmentTag = "About Us";
                 return loadAboutFragment();
             case "Quiz":
                 getSupportActionBar().setTitle("Quiz");
-                currentFragmentTag = "Quiz";
                 return loadQuizFragment();
             case "Sponsors":
                 getSupportActionBar().setTitle("Sponsors");
-                currentFragmentTag = "Sponsors";
                 return loadSponsorFragment();
             case "Logout":
                 sharedPreferencesEditor.putBoolean("loggedin", false);
@@ -282,31 +288,52 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
 
     public void refreshFragment() {
         switch (currentFragmentName) {
-            case "Timeline":
-                loadTimelineFragment();
-                break;
             case "Team":
                 loadTeamFragment();
                 break;
-            case "FAQ":
-                loadFaqFragment();
-                break;
-            case "About Us":
-                loadAboutFragment();
-                break;
-            case "Quiz":
-                loadQuizFragment();
-                break;
-            case "Sponsors":
-                loadSponsorFragment();
         }
+
+        int cx = revealContainer.getLeft();
+        int cy = (revealContainer.getBottom() + revealContainer.getTop()) / 2;
+
+        int dx = Math.max(cx, revealContainer.getWidth() - cx);
+        int dy = Math.max(cy, revealContainer.getHeight() - cy);
+        float finalRadius = (float) Math.hypot(dx, dy);
+
+        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(revealContainer, cx, cy, 0, finalRadius);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.setDuration(500);
+        revealOverlay.setVisibility(View.INVISIBLE);
+        animator.start();
+
+        refreshed = true;
+    }
+
+    public Bitmap takeScreenShot(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
+        view.buildDrawingCache();
+
+        if(view.getDrawingCache() == null) return null;
+
+        Bitmap snapshot = Bitmap.createBitmap(view.getDrawingCache());
+        view.setDrawingCacheEnabled(false);
+        view.destroyDrawingCache();
+
+        return snapshot;
     }
 
     public void syncProfile() {
         String accessToken = Constants.accessToken;
+        if(accessToken.equals("Unauthorized")) {
+            SharedPreferences sharedPreferences = getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
+            Constants.accessToken = sharedPreferences.getString("authtoken", "Unauthorized");
+            accessToken = Constants.accessToken;
+        }
         dialog = new ProgressDialog(MainActivity.this);
         dialog.setMessage("Refreshing...");
         dialog.show();
+        dialog.setCancelable(false);
         retroAPI.observableAPIService.syncProfile(accessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -327,13 +354,11 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                                     }
                                 });
                         snackbar.show();
-                        refreshFragment();
                     }
 
                     @Override
                     public void onNext(JsonObject jsonObject) {
                         if(jsonObject.get("success").getAsBoolean()){
-                            Log.e("message", "Inside syncProf");
                             User user = realm.where(User.class).findFirst();
                             realm.beginTransaction();
                             user.hasTeam = true;
@@ -359,16 +384,32 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                             }
                             realm.copyToRealmOrUpdate(user);
                             realm.commitTransaction();
+                            dialog.dismiss();
+                            refreshFragment();
                         } else {
-                            User user = realm.where(User.class).findFirst();
-                            realm.beginTransaction();
-                            user.hasTeam = false;
-                            user.isLeader = false;
-                            realm.copyToRealmOrUpdate(user);
-                            realm.commitTransaction();
+                            String message = jsonObject.get("message").getAsString();
+                            if(message.equals("You dont habe any team")) {
+                                User user = realm.where(User.class).findFirst();
+                                realm.beginTransaction();
+                                user.hasTeam = false;
+                                user.isLeader = false;
+                                realm.copyToRealmOrUpdate(user);
+                                realm.commitTransaction();
+                                dialog.dismiss();
+                                refreshFragment();
+                            } else {
+                                Snackbar snackbar = Snackbar
+                                        .make(drawerLayout, "Could not connect to server", Snackbar.LENGTH_LONG)
+                                        .setAction("RETRY", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                syncProfile();
+                                            }
+                                        });
+                                dialog.dismiss();
+                                snackbar.show();
+                            }
                         }
-                        refreshFragment();
-                        dialog.dismiss();
                     }
                 });
     }

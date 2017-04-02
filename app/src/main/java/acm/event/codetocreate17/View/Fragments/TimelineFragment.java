@@ -86,13 +86,6 @@ public class TimelineFragment extends Fragment implements ScreenShotable {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //Menu
-        /*switch (item.getItemId()) {
-            //When home is clicked
-            case android.R.id.home:
-                getActivity().onBackPressed();
-                return true;
-        }*/
         return super.onOptionsItemSelected(item);
     }
 

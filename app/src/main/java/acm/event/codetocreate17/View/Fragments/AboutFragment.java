@@ -28,16 +28,17 @@ import acm.event.codetocreate17.R;
 
 import acm.event.codetocreate17.Utility.Adapters.AboutUsRecyclerAdapter;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
 
 public class AboutFragment extends Fragment implements ScreenShotable {
     @BindView(R.id.about_root_view)
     CoordinatorLayout aboutContainer;
+    @BindView(R.id.about_recycler_view)
+    RecyclerView aboutRecyclerView;
 
     private Bitmap bitmap;
-    private RecyclerView mRecyclerView;
-    private CoordinatorLayout root;
     private List<Group> groupList;
     private AboutUsRecyclerAdapter.MyAdapter myAdapter;
 
@@ -56,12 +57,11 @@ public class AboutFragment extends Fragment implements ScreenShotable {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_about, container, false);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.about_recycler_view);
-        root = (CoordinatorLayout) rootView.findViewById(R.id.about_root_view);
+        ButterKnife.bind(this, rootView);
         groupList = new ArrayList<>();
         setAboutData();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
+        aboutRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.ItemAnimator animator = aboutRecyclerView.getItemAnimator();
         if (animator instanceof DefaultItemAnimator) {
             ((DefaultItemAnimator) animator).setSupportsChangeAnimations(false);
         }
@@ -75,7 +75,7 @@ public class AboutFragment extends Fragment implements ScreenShotable {
         groupList.add(DataGenerator.getStudentOrganiser(this));
         groupList.add(DataGenerator.getContacts(this));
         myAdapter = new AboutUsRecyclerAdapter.MyAdapter(getContext(), groupList);
-        mRecyclerView.setAdapter(myAdapter);
+        aboutRecyclerView.setAdapter(myAdapter);
     }
 
 
@@ -84,7 +84,7 @@ public class AboutFragment extends Fragment implements ScreenShotable {
 
     @Override
     public void takeScreenShot() {
-        Thread thread = new Thread() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Bitmap bitmap = Bitmap.createBitmap(aboutContainer.getWidth(),
@@ -93,8 +93,7 @@ public class AboutFragment extends Fragment implements ScreenShotable {
                 aboutContainer.draw(canvas);
                 AboutFragment.this.bitmap = bitmap;
             }
-        };
-        thread.start();
+        });
     }
 
     @Override
