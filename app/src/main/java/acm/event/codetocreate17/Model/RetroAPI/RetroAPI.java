@@ -28,7 +28,7 @@ public class RetroAPI{
 
         @FormUrlEncoded
         @POST("team/myteam")
-        Observable<JsonObject> syncProfile(
+        Observable<JsonObject> syncProfile (
                 @Field("id") String accessToken
         );
     }

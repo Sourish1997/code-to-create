@@ -67,9 +67,9 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
     @Override
     public void onAnimationEnd(Animation animation) {
         text1.setText("");
-        text1.setCharacterDelay(150);
+        text1.setCharacterDelay(125);
         text2.setText("");
-        text2.setCharacterDelay(150);
+        text2.setCharacterDelay(125);
 
         final DataGenerator dataGenerator = new DataGenerator();
         animationThread = new Thread(new Runnable() {
@@ -86,7 +86,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
                     public void run() {
                         while(!text1.getText().equals(dataGenerator.splashData(0))) {
                             try {
-                                Thread.sleep(50);
+                                Thread.sleep(20);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -100,7 +100,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
                                     public void run () {
                                         while (!text2.getText().equals(dataGenerator.splashData(1))) {
                                             try {
-                                                Thread.sleep(50);
+                                                Thread.sleep(20);
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }
@@ -110,7 +110,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
                                             @Override
                                             public void run() {
                                                 try {
-                                                    Thread.sleep(250);
+                                                    Thread.sleep(150);
                                                 } catch (InterruptedException e) {
                                                     e.printStackTrace();
                                                 }

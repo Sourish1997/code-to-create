@@ -27,15 +27,15 @@
             <View
                 android:id="@+id/view3"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/colorDivider"
                 card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="8dp"
                 card_view:layout_constraintTop_toBottomOf="@+id/sponsor_title"
-                card_view:layout_constraintHorizontal_bias="0.0"
-                android:layout_marginBottom="0dp"
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -45,9 +45,10 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/colorAccent"
                 android:text="sponsor_title"
+                android:textColor="@color/colorAccent"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />

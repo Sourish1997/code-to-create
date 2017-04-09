@@ -74,14 +74,16 @@
 
     <ScrollView
         android:id="@+id/main_scroll_view"
-        android:layout_width="60dp"
+        android:layout_width="67dp"
         android:layout_height="match_parent"
         android:layout_gravity="start|bottom"
+        android:background="@color/colorTransparent"
+        android:scrollbarStyle="outsideOverlay"
         android:scrollbarThumbVertical="@android:color/transparent">
 
         <LinearLayout
             android:id="@+id/main_drawer"
-            android:layout_width="60dp"
+            android:layout_width="67dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:divider="@android:color/transparent"

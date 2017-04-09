@@ -20,12 +20,14 @@ import android.widget.TextView;
 import com.wenchao.cardstack.CardStack;
 
 import acm.event.codetocreate17.Model.Data.QuizQuestionModel;
+import acm.event.codetocreate17.Model.RealmModels.User;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.SwipeCardAdapter;
 import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
 public class QuizFragment extends Fragment implements ScreenShotable, CardStack.CardEventListener {
@@ -45,8 +47,10 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     SwipeCardAdapter swipeCardAdapter;
     QuizQuestionModel model;
 
+    Realm realm;
+    User user;
     int cardCount = 15;
-
+    private boolean isLeader;
     private Bitmap bitmap;
 
     @Override
@@ -70,11 +74,20 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
         swipeCardAdapter = new SwipeCardAdapter(getActivity().getApplicationContext(), 0);
 
+        Realm.init(this.getActivity());
+        realm = Realm.getDefaultInstance();
+        user = realm.where(User.class).findFirst();
+
+        isLeader = user.isLeader;
+
         model = new QuizQuestionModel(getResources().getString(R.string.sample_question), getResources().getStringArray(R.array.sample_question_options));
         for(int i =0; i < 15; i++)
             swipeCardAdapter.add(model);
 
         questionStack.setAdapter(swipeCardAdapter);
+
+        getQuizData();
+
         return rootView;
     }
 
@@ -144,7 +157,11 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         if(Constants.isGuest) {
             Snackbar snackbar = Snackbar.make(quizContainer, "Sign in with an admin account to take this quiz.", Snackbar.LENGTH_LONG);
             snackbar.show();
+        } else if(isLeader) {
+            Snackbar snackbar = Snackbar.make(quizContainer, "Oops! You are not an admin.", Snackbar.LENGTH_LONG);
+            snackbar.show();
         } else {
+            startQuiz();
             Animation slideOutAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_out);
             quizIntro.startAnimation(slideOutAnimation);
             quizIntro.setVisibility(View.INVISIBLE);
@@ -152,6 +169,14 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
             Animation slideInAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.grow);
             questionStack.startAnimation(slideInAnimation);
         }
+    }
+
+    public void startQuiz() {
+
+    }
+
+    public void getQuizData() {
+
     }
 
     @Override

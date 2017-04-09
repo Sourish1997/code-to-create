@@ -24,8 +24,8 @@ import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.Model.Data.TimeLineModel;
 import acm.event.codetocreate17.Model.Holders.TimeLineViewHolder;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Utility.Utils.DateTimeUtils;
-import acm.event.codetocreate17.Utility.Utils.VectorDrawableUtils;
+import acm.event.codetocreate17.Utility.Miscellaneous.DateTimeUtility;
+import acm.event.codetocreate17.Utility.Miscellaneous.VectorDrawableUtility;
 
 
 public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
@@ -71,7 +71,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
         if(timeLineModel.getStatus() == DataGenerator.OrderStatus.INACTIVE) {
 
-            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_marker_inactive, R.color.colorAccent));
+            holder.mTimelineView.setMarker(VectorDrawableUtility.getDrawable(mContext, R.drawable.ic_marker_inactive, R.color.colorAccent));
         } else if(timeLineModel.getStatus() == DataGenerator.OrderStatus.ACTIVE) {
             holder.mCard.setElevation(15f);
 
@@ -84,7 +84,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
             ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) holder.guideline.getLayoutParams();
             lp.guidePercent = 1;
             holder.guideline.setLayoutParams(lp);
-            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_marker_active, R.color.colorAccent));
+            holder.mTimelineView.setMarker(VectorDrawableUtility.getDrawable(mContext, R.drawable.ic_marker_active, R.color.colorAccent));
         } else {
 
             holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_marker), ContextCompat.getColor(mContext, R.color.colorAccent));
@@ -92,7 +92,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
         if(!timeLineModel.getDate().isEmpty()) {
             holder.mDate.setVisibility(View.VISIBLE);
-            holder.mDate.setText(DateTimeUtils.parseDateTime(timeLineModel.getDate(), "yyyy-MM-dd HH:mm", "hh:mm a, dd-MMM-yyyy"));
+            holder.mDate.setText(DateTimeUtility.parseDateTime(timeLineModel.getDate(), "yyyy-MM-dd HH:mm", "hh:mm a, dd-MMM-yyyy"));
         }
         else
             holder.mDate.setVisibility(View.GONE);

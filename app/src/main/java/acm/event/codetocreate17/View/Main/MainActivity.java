@@ -19,6 +19,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -30,7 +31,7 @@ import acm.event.codetocreate17.Model.RealmModels.TeamMember;
 import acm.event.codetocreate17.Model.RealmModels.User;
 import acm.event.codetocreate17.Model.RetroAPI.RetroAPI;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Utility.Utils.Constants;
+import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import acm.event.codetocreate17.View.Authentication.LoginActivity;
 import acm.event.codetocreate17.View.Fragments.AboutFragment;
 import acm.event.codetocreate17.View.Fragments.FaqFragment;
@@ -65,13 +66,15 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
     LinearLayout revealOverlay;
     @BindView(R.id.refresh_button)
     ImageButton refreshButton;
+    @BindView(R.id.main_scroll_view)
+    ScrollView scrollView;
 
     private ActionBarDrawerToggle drawerToggle;
     private List<SlideMenuItem> list = new ArrayList<>();
     private ViewAnimator viewAnimator;
     private ProgressDialog dialog;
     private String currentFragmentName = "Timeline";
-    private boolean refreshed= false;
+    private boolean refreshed = false;
 
     Realm realm;
     RetroAPI retroAPI;
@@ -142,8 +145,9 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                if (slideOffset > 0.6 && drawerLinearLayout.getChildCount() == 0)
+                if (slideOffset > 0.6 && drawerLinearLayout.getChildCount() == 0) {
                     viewAnimator.showMenuContent();
+                }
             }
 
             public void onDrawerOpened(View drawerView) {
