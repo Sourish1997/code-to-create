@@ -31,6 +31,37 @@ public class RetroAPI{
         Observable<JsonObject> syncProfile (
                 @Field("id") String accessToken
         );
+
+        @FormUrlEncoded
+        @POST("quiz/create")
+        Observable<JsonObject> startQuiz (
+                @Field("id") String id,
+                @Field("startTime") long startTime,
+                @Field("quizArray") int[] questionArray
+        );
+
+        @FormUrlEncoded
+        @POST("quiz/getData")
+        Observable<JsonObject> getQuizData (
+                @Field("id") String id
+        );
+
+        @FormUrlEncoded
+        @POST("quiz/update")
+        Observable<JsonObject> updateQuizData (
+                @Field("id") String id,
+                @Field("lastQ") int lastQuestion,
+                @Field("marks") int marks
+        );
+
+        @FormUrlEncoded
+        @POST("quiz/finishQuiz")
+        Observable<JsonObject> finishQuiz (
+                @Field("id") String id,
+                @Field("finishTime") long finishTime,
+                @Field("marks") int marks
+        );
+
     }
 
     public interface ValidityService {
