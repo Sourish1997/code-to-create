@@ -57,7 +57,6 @@ public class FaqFragment extends Fragment implements ScreenShotable {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-
         RecyclerView.ItemAnimator animator = recyclerView.getItemAnimator();
         if (animator instanceof DefaultItemAnimator) {
             ((DefaultItemAnimator) animator).setSupportsChangeAnimations(false);

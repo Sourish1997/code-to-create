@@ -9,11 +9,11 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
 import java.util.List;
 
+import acm.event.codetocreate17.Model.Data.FaqAnswerModel;
+import acm.event.codetocreate17.Model.Data.FaqQuestionModel;
 import acm.event.codetocreate17.Model.Holders.AnswerViewHolder;
 import acm.event.codetocreate17.Model.Holders.QuestionViewHolder;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Model.Data.FaqAnswerModel;
-import acm.event.codetocreate17.Model.Data.FaqQuestionModel;
 
 public class QuestionAdapter extends ExpandableRecyclerViewAdapter<QuestionViewHolder, AnswerViewHolder> {
 
@@ -40,13 +40,12 @@ public class QuestionAdapter extends ExpandableRecyclerViewAdapter<QuestionViewH
                                     ExpandableGroup group, int childIndex) {
 
     final FaqAnswerModel answer = ((FaqQuestionModel) group).getItems().get(childIndex);
-    holder.setArtistName(answer.getName());
+    holder.setAnswer(answer.getName());
   }
 
   @Override
   public void onBindGroupViewHolder(QuestionViewHolder holder, int flatPosition,
                                     ExpandableGroup group) {
-
-    holder.setGenreTitle(group);
+    holder.setQuestionTitle(group);
   }
 }

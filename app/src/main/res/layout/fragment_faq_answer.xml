@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/faq_answer_card"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/card_horizontal_margin"
     android:layout_marginRight="@dimen/card_horizontal_margin"
     app:cardBackgroundColor="#313131"
@@ -13,7 +13,7 @@
   <android.support.constraint.ConstraintLayout
       android:id="@+id/faq_answer_layout"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="wrap_content">
 
     <View
         android:id="@+id/view2"
@@ -22,20 +22,18 @@
         android:background="@color/colorDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="45dp" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/faq_answer_text"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"

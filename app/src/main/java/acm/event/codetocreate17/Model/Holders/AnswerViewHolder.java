@@ -17,7 +17,7 @@ public class AnswerViewHolder extends ChildViewHolder {
     childTextView = (TextView) itemView.findViewById(R.id.faq_answer_text);
   }
 
-  public void setArtistName(String name) {
+  public void setAnswer(String name) {
     childTextView.setText(name);
   }
 }

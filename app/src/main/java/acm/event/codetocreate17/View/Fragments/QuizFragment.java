@@ -159,10 +159,11 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         if(((int) (Math.random() * 2)) == 1)
             marks++;
         updateSent = false;
-        lastQuestion = questionArray[15 - cardCount];
         if(cardCount == 0) {
             quizFinished();
+            return;
         }
+        lastQuestion = questionArray[15 - cardCount];
     }
 
     @OnClick(R.id.quiz_start_button)
@@ -376,11 +377,11 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                 boolean started = jsonObject.get("started").getAsBoolean();
                                 boolean finished = jsonObject.get("finished").getAsBoolean();
                                 if(started && !finished) {
-                                    JsonArray qArray = jsonObject.getAsJsonArray("qArray");
+                                    JsonArray qArray = jsonObject.getAsJsonObject("quiz").getAsJsonArray("qArray");
                                     for(int i = 0; i < qArray.size(); i++)
                                         questionArray[i] = qArray.get(i).getAsInt();
-                                    lastQuestion = jsonObject.get("lastQ").getAsInt();
-                                    marks = jsonObject.get("marks").getAsInt();
+                                    lastQuestion = jsonObject.getAsJsonObject("quiz").get("lastQ").getAsInt();
+                                    marks = jsonObject.getAsJsonObject("quiz").get("marks").getAsInt();
                                     for(int i = 0; i < qArray.size(); i++)
                                         if(questionArray[i] == lastQuestion)
                                             cardCount = 15 - i - 1;
@@ -429,7 +430,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
             @Override
             public void run() {
                 while(!finished) {
-                    if((cardCount % 3) == 0 && updateSent == false) {
+                    if((cardCount % 3) == 0 && updateSent == false && cardCount != 0) {
                         updateQuestionData();
                         updateSent = true;
                     }
