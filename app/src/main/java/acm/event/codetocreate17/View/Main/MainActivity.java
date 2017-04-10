@@ -108,23 +108,23 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
     private void createMenuList() {
         SlideMenuItem menuItem1 = new SlideMenuItem("Close", R.drawable.ic_close);
         list.add(menuItem1);
-        SlideMenuItem menuItem2 = new SlideMenuItem("Timeline", R.drawable.ic_delivery_box_and_timer);
+        SlideMenuItem menuItem2 = new SlideMenuItem("Timeline", R.drawable.ic_timeline);
         list.add(menuItem2);
         if(!Constants.isGuest) {
-            SlideMenuItem menuItem3 = new SlideMenuItem("Team", R.drawable.ic_workers_team);
+            SlideMenuItem menuItem3 = new SlideMenuItem("Team", R.drawable.ic_group);
             list.add(menuItem3);
         }
-        SlideMenuItem menuItem4 = new SlideMenuItem("Quiz", R.drawable.ic_notepad);
+        SlideMenuItem menuItem4 = new SlideMenuItem("Quiz", R.drawable.ic_quiz);
         list.add(menuItem4);
-        SlideMenuItem menuItem5 = new SlideMenuItem("Coupons", R.drawable.ic_coupon);
+        SlideMenuItem menuItem5 = new SlideMenuItem("Coupons", R.drawable.ic_coupons);
         list.add(menuItem5);
-        SlideMenuItem menuItem6 = new SlideMenuItem("About Us", R.drawable.ic_icon);
+        SlideMenuItem menuItem6 = new SlideMenuItem("About Us", R.drawable.ic_info);
         list.add(menuItem6);
-        SlideMenuItem menuItem7 = new SlideMenuItem("FAQ", R.drawable.ic_businessman_with_doubts);
+        SlideMenuItem menuItem7 = new SlideMenuItem("FAQ", R.drawable.ic_faq);
         list.add(menuItem7);
-        SlideMenuItem menuItem8 = new SlideMenuItem("Sponsors", R.drawable.ic_shaking_hands);
+        SlideMenuItem menuItem8 = new SlideMenuItem("Sponsors", R.drawable.ic_sponsors);
         list.add(menuItem8);
-        SlideMenuItem menuItem9 = new SlideMenuItem("Logout", R.drawable.ic_log_out);
+        SlideMenuItem menuItem9 = new SlideMenuItem("Logout", R.drawable.ic_logout);
         list.add(menuItem9);
     }
 

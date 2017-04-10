@@ -78,10 +78,6 @@ public class AboutFragment extends Fragment implements ScreenShotable {
         aboutRecyclerView.setAdapter(myAdapter);
     }
 
-
-
-
-
     @Override
     public void takeScreenShot() {
         getActivity().runOnUiThread(new Runnable() {
