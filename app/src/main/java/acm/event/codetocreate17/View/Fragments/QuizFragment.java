@@ -184,7 +184,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         for(int i = 0; i < 15; i++)
             questionArray[i] = -1;
         for(int i = 0; i < 15; i++) {
-            int random = (int) (Math.random() * noOfQuestions);
+            int random = (int) (Math.random() * (noOfQuestions + 1));
             outer:
             while(true) {
                 for (int j = 0; j < i; j++) {

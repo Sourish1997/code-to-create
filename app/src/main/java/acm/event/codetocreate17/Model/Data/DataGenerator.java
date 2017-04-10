@@ -39,7 +39,7 @@ public class DataGenerator {
         String Ans[] = {"Any and all students from all over the country can register. We welcome you all!",
                 "Nothing, it’s absolutely free!",
                 "You can have 2 to 4 people per team. You should either create your own team or accept invitations from other team admins.",
-                "Code2Create incorporates four main areas of interest: \n" +
+                "Code2Create incorporates four main areas of interest: \n\n" +
                         "-FinTech \n" +
                         "-AR/VR \n" +
                         "-Clean Energy \n" +
@@ -148,7 +148,7 @@ public class DataGenerator {
         List<AbouUsHolder> childList=new ArrayList<>();
         AbouUsHolder child1=new AbouUsHolder();
         child1.setName("Abhinav Das");
-        child1.setDesignation("Presidnet");
+        child1.setDesignation("President");
         child1.setImageResource(R.drawable.abhinav);
         AbouUsHolder child2=new AbouUsHolder();
         child2.setName("Pranay Gupta");

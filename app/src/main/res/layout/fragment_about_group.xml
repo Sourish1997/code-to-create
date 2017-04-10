@@ -2,52 +2,65 @@
 <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-
-<android.support.v7.widget.CardView android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/card1"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="8dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginLeft="16dp"
-    card_view:contentPadding="@dimen/expandable_recycler_padding">
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/about_list_item_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:layout_weight="0.8"
-            android:textColor="@color/textColorSecondary"
-            android:text="Message"/>
-
-        <ImageView
-            android:layout_width="@dimen/expandable_arrow_size"
-            android:layout_height="@dimen/expandable_arrow_size"
-
-            android:layout_weight="0.2"
-            card_view:srcCompat="@drawable/ic_arrow_down" />
-
-
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
-    <View
+    <android.support.v7.widget.CardView
+        android:id="@+id/card1"
         android:layout_width="match_parent"
-        android:layout_below="@id/card1"
-        android:layout_height="0.2dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginRight="36dp"
-        android:alpha="0.3"
-        android:background="@color/colorPrimaryDark" />
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginLeft="@dimen/card_horizontal_margin"
+        android:layout_marginRight="@dimen/card_horizontal_margin"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="#424242"
+        app:cardCornerRadius="0dp">
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/about_question_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/faq_separator"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="45dp" />
+
+            <TextView
+                android:id="@+id/about_list_item_content"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/faq_separator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Question" />
+
+            <ImageView
+                android:id="@+id/about_question_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_down"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

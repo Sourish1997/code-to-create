@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Code To Create 17</string>
+    <string name="app_name">Code2Create \'17</string>
+    <string name="acm_vit">ACM VIT</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="transition_zoom_out">transitionZoomOut</string>
     <string name="drawer_open">Open</string>
@@ -11,6 +12,12 @@
         order of the different teams. The questions will be in MCQ format with four options each. For each question, drag
         the question card to one of the 4 screen corners to make your choice.\n\nChoice 1: Top Left Corner
         \nChoice 2: Top Right Corner\nChoice 3: Bottom Left Corner\nChoice 4: Bottom Right Corner</string>
+    <string name="about_acm">Right from its inception in 2009, the ACM VIT Student Chapter has been organising
+        and conducting succesful technical and professional development events. It hosted Compute 2013, the
+        6th ACM India Computing Convention from 22nd to 24th August, 2013, as well as the first All India ACM
+        Chapters Meet on 24th August, 2013. It has credentials in web/mobile applications development and
+        machine learning. The websites "All About VIT" and "VIT Cab Share" are some of the treasured creations
+        of its core members. Technology is its cause and education is its objective.</string>
     <string name="sample_question">The first mechanical computer designed by Charles Babbage was called?</string>
     <string-array name="sample_question_options">
         <item>Abacus</item>
