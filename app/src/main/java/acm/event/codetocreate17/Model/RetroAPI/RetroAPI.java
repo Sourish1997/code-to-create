@@ -6,6 +6,8 @@ package acm.event.codetocreate17.Model.RetroAPI;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
+
 import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -37,7 +39,7 @@ public class RetroAPI{
         Observable<JsonObject> startQuiz (
                 @Field("id") String id,
                 @Field("startTime") long startTime,
-                @Field("quizArray") int[] questionArray
+                @Field("qArray[]") ArrayList<Integer> questionArray
         );
 
         @FormUrlEncoded
