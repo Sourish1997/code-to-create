@@ -34,6 +34,7 @@ import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import acm.event.codetocreate17.View.Authentication.LoginActivity;
 import acm.event.codetocreate17.View.Fragments.AboutFragment;
+import acm.event.codetocreate17.View.Fragments.CouponsFragment;
 import acm.event.codetocreate17.View.Fragments.FaqFragment;
 import acm.event.codetocreate17.View.Fragments.QuizFragment;
 import acm.event.codetocreate17.View.Fragments.SponsorFragment;
@@ -194,6 +195,12 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         return quizFragment;
     }
 
+    public ScreenShotable loadCouponsFragment() {
+        CouponsFragment couponsFragment = new CouponsFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_frame, couponsFragment).commit();
+        return couponsFragment;
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -251,6 +258,9 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
             case "Quiz":
                 getSupportActionBar().setTitle("Quiz");
                 return loadQuizFragment();
+            case "Coupons":
+                getSupportActionBar().setTitle("Coupons");
+                return loadCouponsFragment();
             case "Sponsors":
                 getSupportActionBar().setTitle("Sponsors");
                 return loadSponsorFragment();

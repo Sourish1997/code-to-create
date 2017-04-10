@@ -4,6 +4,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="transition_zoom_out">transitionZoomOut</string>
     <string name="drawer_open">Open</string>
+    <string name="dinner">D\nI\nN\nN\nE\nR</string>
     <string name="drawer_close">Close</string>
     <string name="about_us_event_description">Dummy Content.</string>
     <string name="quiz_intro_heading">About This Quiz</string>
@@ -27,4 +28,7 @@
     </string-array>
     <string name="about_us_header">Code To Create \'17</string>
     <string name="vertical_timeline">Timeline</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

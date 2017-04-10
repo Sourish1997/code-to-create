@@ -52,7 +52,7 @@ public class SponsorFragment extends Fragment implements ScreenShotable {
     }
 
     private ArrayList<DataGenerator> getDataSet() {
-        ArrayList results = new ArrayList<DataGenerator>();
+        ArrayList<DataGenerator> results = new ArrayList<>();
         for (int index = 0; index < 4; index++) {
             DataGenerator obj = new DataGenerator("Title " + index,
                     "Image" + index);

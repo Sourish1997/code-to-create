@@ -108,7 +108,15 @@ public class DataGenerator {
 
     }
 
+    public String[] getCouponTitles() {
+        String[] couponTitles = new String[] {"C\nO\nF\nF\nE\nE", "B\nR\nE\nA\nK\nF\nA\nS\nT", "L\nU\nN\nC\nH", "S\nN\nA\nC\nK\nS", "D\nI\nN\nN\nE\nR"};
+        return couponTitles;
+    }
 
+    public int[] getCouponPrimaryImages() {
+        int[] couponsIds = new int[] {R.drawable.ic_coffee, R.drawable.ic_breakfast, R.drawable.ic_lunch, R.drawable.ic_snacks, R.drawable.ic_spaghetti};
+        return couponsIds;
+    }
 
     public enum OrderStatus {
 
@@ -123,8 +131,7 @@ public class DataGenerator {
 
     }
 
-    public static AboutFragment.Group getFacultyOrganaiser(AboutFragment aboutFragment)
-    {
+    public static AboutFragment.Group getFacultyOrganaiser(AboutFragment aboutFragment) {
         List<AbouUsHolder> childList=new ArrayList<>();
         AbouUsHolder child1=new AbouUsHolder();
         child1.setName("Dr. Aswani Kumar Cherukuri");
@@ -144,7 +151,6 @@ public class DataGenerator {
     }
 
     public static AboutFragment.Group getStudentOrganiser(AboutFragment aboutFragment){
-
         List<AbouUsHolder> childList=new ArrayList<>();
         AbouUsHolder child1=new AbouUsHolder();
         child1.setName("Abhinav Das");
