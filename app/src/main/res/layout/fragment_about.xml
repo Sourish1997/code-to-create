@@ -93,21 +93,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
         app:behavior_overlapTop="52dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/about_recycler_view">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="16dp"
-            android:id="@+id/about_recycler_view">
-
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.NestedScrollView>
-
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.design.widget.CoordinatorLayout>
