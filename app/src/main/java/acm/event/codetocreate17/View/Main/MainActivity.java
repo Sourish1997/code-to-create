@@ -323,27 +323,6 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         refreshed = true;
     }
 
-    public void animatedLoadTeamFragment() {
-        getSupportActionBar().setTitle("My Team");
-        currentFragmentName = "Team";
-        loadTeamFragment();
-
-        int cx = revealContainer.getLeft();
-        int cy = (revealContainer.getBottom() + revealContainer.getTop()) / 2;
-
-        int dx = Math.max(cx, revealContainer.getWidth() - cx);
-        int dy = Math.max(cy, revealContainer.getHeight() - cy);
-        float finalRadius = (float) Math.hypot(dx, dy);
-
-        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(revealContainer, cx, cy, 0, finalRadius);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(500);
-        revealOverlay.setVisibility(View.INVISIBLE);
-        animator.start();
-
-        refreshed = true;
-    }
-
     public Bitmap takeScreenShot(View view) {
         view.setDrawingCacheEnabled(true);
         view.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);

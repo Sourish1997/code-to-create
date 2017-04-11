@@ -27,6 +27,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.wenchao.cardstack.CardStack;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -37,7 +39,6 @@ import acm.event.codetocreate17.Model.RetroAPI.RetroAPI;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.SwipeCardAdapter;
 import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
-import acm.event.codetocreate17.View.Main.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -66,7 +67,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     Button quizStartButton;
 
     SwipeCardAdapter swipeCardAdapter;
-    QuizQuestionModel model;
     Realm realm;
     User user;
     RetroAPI retroAPI;
@@ -74,8 +74,8 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     int cardCount = 15;
     int noOfQuestions = 30;
-    int lastQuestion = 0;
-    int lastQuestionIndex = 0;
+    int lastQuestion = -1;
+    int lastQuestionIndex = -1;
     int marks = 0;
     int[] questionArray;
     private boolean isLeader;
@@ -110,7 +110,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         realm = Realm.getDefaultInstance();
         user = realm.where(User.class).findFirst();
 
-        quizDatabase = new DataGenerator().qetQuizDatabase();
+        quizDatabase = new DataGenerator().getQuizDatabase();
         retroAPI = new RetroAPI();
         questionArray = new int[15];
 
@@ -160,7 +160,10 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     @Override
     public void discarded(int mIndex, int direction) {
         cardCount--;
-        int choice = swipeCardAdapter.getItem(mIndex).correctChoice;
+        lastQuestionIndex++;
+        Log.e("message", cardCount + " " + questionArray[14 - cardCount]);
+        int choice = quizDatabase[questionArray[14 - cardCount] - 1].correctChoice;
+        Log.e("message", quizDatabase[questionArray[14 - cardCount] - 1].statement);
         if(choice == direction)
             marks++;
         updateSent = false;
@@ -195,18 +198,21 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
             quizStartButton.setText("Fetching Quiz Data...");
             quizStartButton.setClickable(false);
         }
+
         retroAPI.observableAPIService.getQuizData(accessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JsonObject>() {
-
                     @Override
                     public void onCompleted() {
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("message", e.getMessage());
+                        StringWriter sw = new StringWriter();
+                        PrintWriter pw = new PrintWriter(sw);
+                        e.printStackTrace(pw);
+                        Log.e("message2", sw.toString());
                         if(!initialDataReceived) {
                             progressDialog.dismiss();
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -215,12 +221,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                     .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             getQuizData();
-                                        }
-                                    })
-                                    .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            ((MainActivity)getActivity()).animatedLoadTeamFragment();
                                         }
                                     });
                             AlertDialog alertDialog = builder.create();
@@ -247,11 +247,17 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                         questionArray[i] = qArray.get(i).getAsInt();
                                     lastQuestion = jsonObject.getAsJsonObject("quiz").get("lastQ").getAsInt();
                                     marks = jsonObject.getAsJsonObject("quiz").get("marks").getAsInt();
-                                    for(int i = 0; i < qArray.size(); i++)
-                                        if(questionArray[i] == lastQuestion) {
-                                            cardCount = 15 - i - 1;
-                                            lastQuestionIndex = i;
-                                        }
+                                    if(lastQuestion == -1) {
+                                        cardCount = 15;
+                                        lastQuestionIndex = -1;
+                                    } else {
+                                        for (int i = 0; i < qArray.size(); i++)
+                                            if (questionArray[i] == lastQuestion) {
+                                                cardCount = 14 - i;
+                                                lastQuestionIndex = i;
+                                                break;
+                                            }
+                                    }
                                     progressDialog.dismiss();
                                     showQuiz();
                                 } else if (started && finished) {
@@ -281,9 +287,11 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     }
 
     public void showQuiz() {
-        for(int i = lastQuestion + 1; i < 15; i++)
-            swipeCardAdapter.add(quizDatabase[questionArray[i]]);
+        for(int i = lastQuestionIndex + 1; i < 15; i++)
+            swipeCardAdapter.add(quizDatabase[questionArray[i] - 1]);
         questionStack.setAdapter(swipeCardAdapter);
+
+        Log.e("message", lastQuestion + "");
 
         Animation slideOutAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_out);
         quizIntro.startAnimation(slideOutAnimation);
@@ -300,6 +308,9 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                         updateQuestionData();
                         updateSent = true;
                     }
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {}
                 }
             }
         });
@@ -312,7 +323,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         for(int i = 0; i < 15; i++)
             questionArray[i] = -1;
         for(int i = 0; i < 15; i++) {
-            int random = (int) (Math.random() * (noOfQuestions + 1));
+            int random = (int) (Math.random() * noOfQuestions) + 1;
             outer:
             while(true) {
                 for (int j = 0; j < i; j++) {
@@ -328,7 +339,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
             questionArray[i] = random;
         }
         Arrays.sort(questionArray);
-        lastQuestion = questionArray[0];
         ArrayList<Integer> qArray = new ArrayList<>();
         for(int i = 0; i < 15; i++)
             qArray.add(questionArray[i]);
@@ -368,6 +378,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     public void updateQuestionData() {
         String accessToken = Constants.accessToken;
+        Log.e("message", "Update!!" + lastQuestion + "");
         retroAPI.observableAPIService.updateQuizData(accessToken, lastQuestion, marks)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -387,12 +398,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                 .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         showUpdateProgressDialog();
-                                    }
-                                })
-                                .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        ((MainActivity)getActivity()).animatedLoadTeamFragment();
                                     }
                                 });
                         AlertDialog alertDialog = builder.create();
@@ -445,13 +450,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                 .setCancelable(false)
                                 .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        showUpdateProgressDialog();
-                                    }
-                                })
-                                .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        ((MainActivity)getActivity()).animatedLoadTeamFragment();
+                                        quizFinished();
                                     }
                                 });
                         AlertDialog alertDialog = builder.create();
@@ -509,7 +508,8 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                 quizContainer.draw(canvas);
                 QuizFragment.this.bitmap = bitmap;
             }
-        });    }
+        });
+    }
 
     @Override
     public Bitmap getBitmap() {

@@ -92,7 +92,7 @@ public class TimelineFragment extends Fragment implements ScreenShotable {
 
     @Override
     public void takeScreenShot() {
-        Thread thread = new Thread() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Bitmap bitmap = Bitmap.createBitmap(timelineContainer.getWidth(),
@@ -101,8 +101,7 @@ public class TimelineFragment extends Fragment implements ScreenShotable {
                 timelineContainer.draw(canvas);
                 TimelineFragment.this.bitmap = bitmap;
             }
-        };
-        thread.start();
+        });
     }
 
     @Override

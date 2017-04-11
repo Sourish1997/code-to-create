@@ -54,7 +54,7 @@ public class SponsorFragment extends Fragment implements ScreenShotable {
 
     private ArrayList<DataGenerator> getDataSet() {
         ArrayList<DataGenerator> results = new ArrayList<>();
-        for (int index = 0; index < 9; index++) {
+        for (int index = 0; index < 8; index++) {
             DataGenerator obj = new DataGenerator("Title " + index,
                     "Image" + index);
             results.add(index, obj);
@@ -64,7 +64,7 @@ public class SponsorFragment extends Fragment implements ScreenShotable {
 
     @Override
     public void takeScreenShot() {
-        Thread thread = new Thread() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Bitmap bitmap = Bitmap.createBitmap(sponsorLayout.getWidth(),
@@ -73,9 +73,7 @@ public class SponsorFragment extends Fragment implements ScreenShotable {
                 sponsorLayout.draw(canvas);
                 SponsorFragment.this.bitmap = bitmap;
             }
-        };
-
-        thread.start();
+        });
     }
 
     @Override

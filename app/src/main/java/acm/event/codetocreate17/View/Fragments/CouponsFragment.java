@@ -90,6 +90,8 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
             Thread qrCodesInitializeThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    sharedPreferences = getActivity().getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
+                    userId = sharedPreferences.getString("userid", "");
                     qrCodes = new Bitmap[couponTitles.length];
                     qrCodesList = new ArrayList<>();
                     for (int i = 0; i < qrCodes.length; i++) {
@@ -99,8 +101,6 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
                         } catch (WriterException e) {
                         }
                     }
-                    sharedPreferences = getActivity().getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
-                    userId = sharedPreferences.getString("userid", "");
 
                     couponsAdapter = new CouponsAdapter(couponTitlesList, couponPrimaryImagesList, qrCodesList);
                     getActivity().runOnUiThread(
@@ -136,7 +136,7 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
             for (int x = 0; x < bitMatrixWidth; x++) {
 
                 pixels[offset + x] = bitMatrix.get(x, y) ?
-                        getResources().getColor(R.color.white):getResources().getColor(R.color.cardColorBackground);
+                        getResources().getColor(R.color.black):getResources().getColor(R.color.white);
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
@@ -156,7 +156,7 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
 
     @Override
     public void takeScreenShot() {
-        Thread thread = new Thread() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Bitmap bitmap = Bitmap.createBitmap(couponsContainer.getWidth(),
@@ -165,8 +165,7 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
                 couponsContainer.draw(canvas);
                 CouponsFragment.this.bitmap = bitmap;
             }
-        };
-        thread.start();
+        });
     }
 
     @Override
