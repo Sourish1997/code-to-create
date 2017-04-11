@@ -13,10 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.Model.Data.TimeLineModel;
@@ -24,6 +22,7 @@ import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.TimeLineAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
 import static acm.event.codetocreate17.Model.Data.DataGenerator.getTimelineDate;
@@ -74,7 +73,9 @@ public class TimelineFragment extends Fragment implements ScreenShotable {
     private void initView() {
         setDataListItems();
         mTimeLineAdapter = new TimeLineAdapter(mDataList, mOrientation, mWithLinePadding);
-        mRecyclerView.setAdapter(mTimeLineAdapter);
+        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mTimeLineAdapter);
+        alphaAdapter.setDuration(1000);
+        mRecyclerView.setAdapter(alphaAdapter);
     }
 
     private void setDataListItems(){

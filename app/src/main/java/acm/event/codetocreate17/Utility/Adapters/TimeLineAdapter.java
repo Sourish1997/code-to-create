@@ -96,7 +96,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
         }
         else
             holder.mDate.setVisibility(View.GONE);
-            setAnimation(holder.mCard, position);
+            //setAnimation(holder.mCard, position);
 
         holder.mMessage.setText(timeLineModel.getMessage());
     }

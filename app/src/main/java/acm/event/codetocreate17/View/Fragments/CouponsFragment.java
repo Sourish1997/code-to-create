@@ -29,6 +29,7 @@ import acm.event.codetocreate17.Utility.Adapters.CouponsAdapter;
 import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -106,7 +107,9 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
                             new Runnable() {
                                 @Override
                                 public void run() {
-                                    couponsRecyclerView.setAdapter(couponsAdapter);
+                                    AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(couponsAdapter);
+                                    alphaAdapter.setDuration(1000);
+                                    couponsRecyclerView.setAdapter(alphaAdapter);
                                     couponsRecyclerView.setLayoutManager(new LinearLayoutManager(couponsRecyclerView.getContext()));
                                     progressDialog.dismiss();
                                 }
@@ -118,19 +121,9 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
         return rootView;
     }
 
-    private Bitmap TextToImageEncode(String Value) throws WriterException {
-        BitMatrix bitMatrix;
-        try {
-            bitMatrix = new MultiFormatWriter().encode(
-                    Value,
-                    BarcodeFormat.DATA_MATRIX.QR_CODE,
-                    500, 500, null
-            );
-
-        } catch (IllegalArgumentException Illegalargumentexception) {
-
-            return null;
-        }
+    private Bitmap TextToImageEncode(String value) throws WriterException {
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        BitMatrix bitMatrix = multiFormatWriter.encode(value, BarcodeFormat.QR_CODE, 200, 200);
         int bitMatrixWidth = bitMatrix.getWidth();
 
         int bitMatrixHeight = bitMatrix.getHeight();
@@ -147,8 +140,7 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-
-        bitmap.setPixels(pixels, 0, 500, 0, 0, bitMatrixWidth, bitMatrixHeight);
+        bitmap.setPixels(pixels, 0, 200, 0, 0, bitMatrixWidth, bitMatrixHeight);
         return bitmap;
     }
 
