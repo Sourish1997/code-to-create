@@ -36,6 +36,7 @@ import acm.event.codetocreate17.Model.RetroAPI.RetroAPI;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.SwipeCardAdapter;
 import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
+import acm.event.codetocreate17.View.Main.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -65,10 +66,11 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     SwipeCardAdapter swipeCardAdapter;
     QuizQuestionModel model;
-
     Realm realm;
     User user;
     RetroAPI retroAPI;
+    ProgressDialog progressDialog;
+
     int cardCount = 15;
     int noOfQuestions = 30;
     int lastQuestion = 0;
@@ -76,7 +78,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     int[] questionArray;
     private boolean isLeader;
     private boolean finished = false;
-    ProgressDialog progressDialog;
     private boolean initialDataReceived = false;
     private boolean updateSent = true;
     private Bitmap bitmap;
@@ -167,7 +168,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
             quizFinished();
             return;
         }
-        lastQuestion = questionArray[15 - cardCount];
+        lastQuestion = questionArray[14 - cardCount];
     }
 
     @OnClick(R.id.quiz_start_button)
@@ -181,153 +182,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         } else {
             getQuizData();
         }
-    }
-
-    public void startQuiz() {
-        String accessToken = Constants.accessToken;
-        quizStartButton.setText("Initializing Quiz...");
-        for(int i = 0; i < 15; i++)
-            questionArray[i] = -1;
-        for(int i = 0; i < 15; i++) {
-            int random = (int) (Math.random() * (noOfQuestions + 1));
-            outer:
-            while(true) {
-                for (int j = 0; j < i; j++) {
-                    if (questionArray[j] == random) {
-                        random++;
-                        if(random == noOfQuestions)
-                            random = 0;
-                        continue outer;
-                    }
-                }
-                break;
-            }
-            questionArray[i] = random;
-        }
-        Arrays.sort(questionArray);
-        lastQuestion = questionArray[0];
-        ArrayList<Integer> qArray = new ArrayList<>();
-        for(int i = 0; i < 15; i++) {
-            qArray.add(questionArray[i]);
-            Log.e("number", questionArray[i] + "");
-        }
-
-        retroAPI.observableAPIService.startQuiz(accessToken, System.currentTimeMillis(), qArray)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<JsonObject>() {
-
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        quizStartButton.setText("Start Quiz");
-                        quizStartButton.setClickable(true);
-                        Snackbar snackbar = Snackbar
-                                .make(quizContainer, "Could not connect to server!", Snackbar.LENGTH_LONG)
-                                .setAction("RETRY", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        startQuiz();
-                                    }
-                                });
-                        snackbar.show();
-                    }
-
-                    @Override
-                    public void onNext(JsonObject jsonObject) {
-                        if (jsonObject.get("success").getAsBoolean()) {
-                            showQuiz();
-                        } else {}
-                    }
-                });
-    }
-
-    public void updateQuestionData() {
-        String accessToken = Constants.accessToken;
-        retroAPI.observableAPIService.updateQuizData(accessToken, lastQuestion, marks)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<JsonObject>() {
-
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if(progressDialog.isShowing())
-                            progressDialog.dismiss();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("Could not connect to server!")
-                                .setCancelable(false)
-                                .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        showUpdateProgressDialog();
-                                    }
-                                });
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                    }
-
-                    @Override
-                    public void onNext(JsonObject jsonObject) {
-                        if (jsonObject.get("success").getAsBoolean()) {
-                            if(progressDialog.isShowing())
-                                progressDialog.dismiss();
-                        } else {};
-                    }
-                });
-    }
-
-    public void showUpdateProgressDialog() {
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Reconnecting...");
-        progressDialog.show();
-        progressDialog.setCancelable(false);
-        updateQuestionData();
-    }
-
-    public void quizFinished() {
-        String accessToken = Constants.accessToken;
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Uploading Final Score...");
-        progressDialog.show();
-        progressDialog.setCancelable(false);
-        retroAPI.observableAPIService.finishQuiz(accessToken, System.currentTimeMillis(), marks)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<JsonObject>() {
-
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        progressDialog.dismiss();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("Could not connect to server!")
-                                .setCancelable(false)
-                                .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        showUpdateProgressDialog();
-                                    }
-                                });
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                    }
-
-                    @Override
-                    public void onNext(JsonObject jsonObject) {
-                        if (jsonObject.get("success").getAsBoolean()) {
-                            progressDialog.dismiss();
-                            showQuizFinishedCard();
-                        } else {}
-                    }
-                });
     }
 
     public void getQuizData() {
@@ -352,6 +206,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e("message", e.getMessage());
                         if(!initialDataReceived) {
                             progressDialog.dismiss();
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -360,6 +215,12 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                     .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             getQuizData();
+                                        }
+                                    })
+                                    .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            ((MainActivity)getActivity()).animatedLoadTeamFragment();
                                         }
                                     });
                             AlertDialog alertDialog = builder.create();
@@ -419,7 +280,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     public void showQuiz() {
         model = new QuizQuestionModel(getResources().getString(R.string.sample_question), getResources().getStringArray(R.array.sample_question_options));
-        for(int i =0; i < cardCount; i++)
+        for(int i = 0; i < cardCount; i++)
             swipeCardAdapter.add(model);
         questionStack.setAdapter(swipeCardAdapter);
 
@@ -442,6 +303,168 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
             }
         });
         quizDataUpdateThread.start();
+    }
+
+    public void startQuiz() {
+        String accessToken = Constants.accessToken;
+        quizStartButton.setText("Initializing Quiz...");
+        for(int i = 0; i < 15; i++)
+            questionArray[i] = -1;
+        for(int i = 0; i < 15; i++) {
+            int random = (int) (Math.random() * (noOfQuestions + 1));
+            outer:
+            while(true) {
+                for (int j = 0; j < i; j++) {
+                    if (questionArray[j] == random) {
+                        random++;
+                        if(random == noOfQuestions)
+                            random = 0;
+                        continue outer;
+                    }
+                }
+                break;
+            }
+            questionArray[i] = random;
+        }
+        Arrays.sort(questionArray);
+        lastQuestion = questionArray[0];
+        ArrayList<Integer> qArray = new ArrayList<>();
+        for(int i = 0; i < 15; i++)
+            qArray.add(questionArray[i]);
+
+        retroAPI.observableAPIService.startQuiz(accessToken, System.currentTimeMillis(), qArray)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JsonObject>() {
+
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        quizStartButton.setText("Start Quiz");
+                        quizStartButton.setClickable(true);
+                        Snackbar snackbar = Snackbar
+                                .make(quizContainer, "Could not connect to server!", Snackbar.LENGTH_LONG)
+                                .setAction("RETRY", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startQuiz();
+                                    }
+                                });
+                        snackbar.show();
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        if (jsonObject.get("success").getAsBoolean()) {
+                            showQuiz();
+                        } else {}
+                    }
+                });
+    }
+
+    public void updateQuestionData() {
+        String accessToken = Constants.accessToken;
+        retroAPI.observableAPIService.updateQuizData(accessToken, lastQuestion, marks)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JsonObject>() {
+
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if(progressDialog.isShowing())
+                            progressDialog.dismiss();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Could not connect to server!")
+                                .setCancelable(false)
+                                .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        showUpdateProgressDialog();
+                                    }
+                                })
+                                .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        ((MainActivity)getActivity()).animatedLoadTeamFragment();
+                                    }
+                                });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        if (jsonObject.get("success").getAsBoolean()) {
+                            boolean isLive = jsonObject.get("isLive").getAsBoolean();
+                            if(isLive) {
+                                if(progressDialog.isShowing())
+                                    progressDialog.dismiss();
+                            } else {
+                                quizFinished();
+                            }
+                        } else {};
+                    }
+                });
+    }
+
+    public void showUpdateProgressDialog() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Reconnecting...");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        updateQuestionData();
+    }
+
+    public void quizFinished() {
+        String accessToken = Constants.accessToken;
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Uploading Final Score...");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        retroAPI.observableAPIService.finishQuiz(accessToken, System.currentTimeMillis(), marks)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JsonObject>() {
+
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        progressDialog.dismiss();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Could not connect to server!")
+                                .setCancelable(false)
+                                .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        showUpdateProgressDialog();
+                                    }
+                                })
+                                .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        ((MainActivity)getActivity()).animatedLoadTeamFragment();
+                                    }
+                                });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        if (jsonObject.get("success").getAsBoolean()) {
+                            progressDialog.dismiss();
+                            showQuizFinishedCard();
+                        } else {}
+                    }
+                });
     }
 
     public void showQuizFinishedCard() {
@@ -476,7 +499,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     @Override
     public void takeScreenShot() {
-        Thread thread = new Thread() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Bitmap bitmap = Bitmap.createBitmap(quizContainer.getWidth(),
@@ -485,10 +508,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                 quizContainer.draw(canvas);
                 QuizFragment.this.bitmap = bitmap;
             }
-        };
-
-        thread.start();
-    }
+        });    }
 
     @Override
     public Bitmap getBitmap() {
