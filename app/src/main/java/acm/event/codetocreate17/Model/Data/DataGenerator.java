@@ -20,19 +20,20 @@ public class DataGenerator {
     public DataGenerator(String text1, String text2){
 
     }
+
     public String splashData(int i) {
         String text[] = {"Innovate.Learn.", "Create."};
         return text[i];
     }
+
     public String[] getQuestions()
     {
         String Ques[] = {"Who all can register?","What are the registration fees?","How many people can I have on my team?",
                 "What tracks does this hack include?", "How do I choose my track?" , "How do I qualify for the pitching round?", "What is the quiz about ?"
                 , "What happens if I rank last during the quiz?", "What all can I win?", "What if I get hungry or need internet ? "};
         return Ques;
-
-
     }
+
     public String[] getAnswers()
     {
         String Ans[] = {"Any and all students from all over the country can register. We welcome you all!",
@@ -50,6 +51,7 @@ public class DataGenerator {
                 "We’ll provide you with delicious food at regular intervals (breakfast, lunch, dinner and snacks) along with beverages. Also, you will be provided with free access to our beloved internet facility, VOLSBB.",};
         return Ans;
     }
+
     public static String getTimelineEvent(int i)
     {
         String Event[] = {"Registration","Introduction","Hack begins","Dinner","Beverage period",
@@ -59,6 +61,7 @@ public class DataGenerator {
         return Event[i];
 
     }
+
     public static String getTimelineDate(int i)
     {
         String Date[] = {"2017-04-13 19:00","2017-04-13 21:00","2017-04-13 22:00","2017-04-13 23:30","2017-04-14 00:00",
@@ -68,6 +71,7 @@ public class DataGenerator {
         return Date[i];
 
     }
+
     public static OrderStatus checkOderStatus(String s1,String s2 ) {
         String pattern = "yyyy-MM-dd HH:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
@@ -86,6 +90,7 @@ public class DataGenerator {
             return OrderStatus.INACTIVE;
         }
     }
+
     public static String getSponsorTitle(int i)
     {
         String title[] = {"Title Sponsor","Title Sponsor","Cloud Patner","Sponsor","Sponsor","Sponsor","Collaborator",
@@ -233,7 +238,84 @@ public class DataGenerator {
         return group;
     }
 
+    public String[] quizQuestions() {
+        String[] quizQuestions = new String[] {
+                "What is the jumper setting on a SCSI device to configure it to use the fourth SCSI id?",
+                "What tool is used to test serial and parallel ports?",
+                "What device prevents power interruptions, resulting in corrupted data?",
+                "A sound card typically uses which IRQ?",
+                "What form of transmissions do modems use?",
+                "Which of the following is NOT one of the four major data processing functions of a computer?",
+                "What tag, when placed on an animal, can be used to record and track all its movements?",
+                "Surgeons can perform delicate operations by manipulating devices through computers instead of manually. This technology is known as:",
+                "Technology no longer protected by copyright, available to everyone, is considered to be",
+                "What is the study of molecules and structures whose size ranges from 1 to 100 nanometers?",
+                "Science that attempts to produce machines that display the same type of intelligence as humans:",
+                "Data that has been organized or presented in a meaningful fashion:",
+                "The name for the way that computers manipulate data into information is called:",
+                "Computers gather data, which means that they allow users to ____________ data.",
+                "After a picture has been taken with a digital camera and processed appropriately, the actual print of the picture is considered:",
+                "Computers use the ____________ language to process data.",
+                "Computers process data into information by working exclusively with:",
+                "In the binary language, each letter of the alphabet, each number and each special character is made up of a unique combination of:",
+                "What does FDISK do?",
+                "Which of the following conditions most increases the likelihood that ESD will occur?",
+                "Which IRQ does the hard disk controller commonly use?",
+                "IRQ 6 is commonly assigned to:",
+                "Which of the following is NOT a type of RAM?",
+                "Which is NOT typically a Field Replaceable Unit?",
+                "How many pins are present on a VGA?",
+                "What component would most likely cause a parity error?",
+                "How many devices can be used on a single SCSI bus?",
+                "What helps prevent power surges?",
+                "How many pins do IDE cables have?",
+                "The first mechanical computer designed by Charles Babbage was called?"
+        };
+        return quizQuestions;
+    }
 
+    public String[][] quizQuestionOptions() {
+        String[][] quizOptions = new String[][]{
+                {"010", "110", "011", "101", "001"},
+                {"High volt probe", "Cable scanner", "Loop backs (wrap plugs)", "Sniffer"},
+                {"Battery back-up unit", "Surge protector", "Multiple SIMMs strips", "Data guard system"},
+                {"6", "5", "15", "1"},
+                {"Synchronous", "Asynchronous", "Timed interval", "Bank"},
+                {"Gathering data", "Processing data into information", "Analyzing the data", "Storing the data"},
+                {"POS", "RFID", "PPS", "GPS"},
+                {"Robotics", "Computer forensics", "Simulation", "Forecasting"},
+                {"Proprietary", "Open", "Experimental", "In the public domain"},
+                {"Nanoscience", "Microelectrodes", "Computer forensics", "Artificial intelligence"},
+                {"Nanoscience", "Nanotechnology", "Simulation", "Artificial intelligence"},
+                {"Process", "Software", "Storage", "Information"},
+                {"Programming", "Processing", "Storing", "Organizing"},
+                {"Present", "Input", "Output", "Store"},
+                {"Data", "Output", "Input", "Process"},
+                {"Processing", "Kilobyte", "Binary", "Representational"},
+                {"Multimedia", "Words", "Characters", "Numbers"},
+                {"8 bytes", "8 kilobytes", "8 characters", "8 bits"},
+                {"Performs low-level formatinf of hard drive", "Fixes bad sectors on hard drive", "Recovers lost clusters on hard drive", "Creates partitions on hard drive"},
+                {"Hot, dry conditions", "Cool, damp conditions", "Cool, dry conditions", "Hot, damp conditions"},
+                {"14", "1", "2", "11"},
+                {"Sound card", "COM1", "Floppy drive controller", "LPT1"},
+                {"SIMM", "DIMM", "ROM", "SLIPP"},
+                {"System ROM", "Power supply", "System chassis", "Video controller"},
+                {"15", "9", "25", "32"},
+                {"Bad hard disk", "Bad controller", "Bad RAM", "Bad software"},
+                {"1", "8", "20", "10"},
+                {"Surge processor", "Spike protector", "UPS system", "High-grade multimeter"},
+                {"25", "50", "100", "40"},
+                {"Abacus", "Analytical Engine", "ENIAC", "IAS Machine"}
+        };
+        return quizOptions;
+    }
 
-
+    public int[] correctOptions() {
+        int[] correctOptions = new int[] {
+                2, 2, 0, 1, 1, 2, 1, 0, 0, 0,
+                3, 3, 1, 1, 1, 2, 3, 3, 3, 0,
+                0, 2, 2, 2, 0, 2, 1, 0, 3, 1
+        };
+        return correctOptions;
+    }
 }
