@@ -57,8 +57,10 @@ public class AboutAdapter extends ExpandableRecyclerAdapter<AboutParentHolder, A
         final AboutModel child = (AboutModel) childListItem;
         if (child.getContact() == false) {
             childViewHolder.mItemTextView.setText(child.getName());
+            childViewHolder.desgination.setVisibility(View.VISIBLE);
             childViewHolder.desgination.setText(child.getDesignation());
             childViewHolder.mImageView.setImageResource(child.getImageResource());
+            childViewHolder.holder.setClickable(false);
         } else {
             childViewHolder.mItemTextView.setText(child.getName());
             childViewHolder.desgination.setVisibility(View.GONE);
