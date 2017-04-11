@@ -155,13 +155,9 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     @Override
     public void discarded(int mIndex, int direction) {
-        if (direction == 0) {
-        } else if (direction == 1) {
-        } else if (direction == 2){
-        } else {
-        }
         cardCount--;
-        if(((int) (Math.random() * 2)) == 1)
+        int choice = swipeCardAdapter.getItem(mIndex).correctChoice;
+        if(choice == direction)
             marks++;
         updateSent = false;
         if(cardCount == 0) {
@@ -279,7 +275,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     }
 
     public void showQuiz() {
-        model = new QuizQuestionModel(getResources().getString(R.string.sample_question), getResources().getStringArray(R.array.sample_question_options));
+        model = new QuizQuestionModel(getResources().getString(R.string.sample_question), getResources().getStringArray(R.array.sample_question_options), 1);
         for(int i = 0; i < cardCount; i++)
             swipeCardAdapter.add(model);
         questionStack.setAdapter(swipeCardAdapter);
