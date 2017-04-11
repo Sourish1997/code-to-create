@@ -146,7 +146,7 @@ public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayo
 
     @Override
     public void takeScreenShot() {
-        getActivity().runOnUiThread(new Runnable() {
+        Thread thread = new Thread() {
             @Override
             public void run() {
                 Bitmap bitmap = Bitmap.createBitmap(teamContainer.getWidth(),
@@ -155,7 +155,8 @@ public class TeamFragment extends Fragment implements ScreenShotable, AppBarLayo
                 teamContainer.draw(canvas);
                 TeamFragment.this.bitmap = bitmap;
             }
-        });
+        };
+        thread.start();
     }
 
     @Override
