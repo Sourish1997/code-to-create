@@ -1,22 +1,15 @@
-package acm.event.codetocreate17.Model.Holders;
+package acm.event.codetocreate17.Model.Data;
 
 
-public class AbouUsHolder {
-
-
-
-
+public class AboutModel {
     private String name;
     private String designation;
-    private Boolean isContact=false;
+    private Boolean isContact = false;
     private int imageResource;
-
-
 
     public String getName() {
         return name;
     }
-
 
     public void setName(String name) {
         this.name = name;

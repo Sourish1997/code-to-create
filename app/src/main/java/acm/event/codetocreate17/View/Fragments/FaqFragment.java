@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Utility.Adapters.QuestionAdapter;
+import acm.event.codetocreate17.Utility.Adapters.FaqAdapter;
 import acm.event.codetocreate17.Model.Data.FaqAnswerModel;
 import acm.event.codetocreate17.Model.Data.FaqQuestionModel;
 import butterknife.BindView;
@@ -30,7 +30,7 @@ import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
 public class FaqFragment extends Fragment implements ScreenShotable {
 
-    public QuestionAdapter adapter;
+    public FaqAdapter adapter;
 
     @BindView(R.id.faq_root_view)
     ConstraintLayout faqContainer;
@@ -74,7 +74,7 @@ public class FaqFragment extends Fragment implements ScreenShotable {
             finalQuestions.add(question);
         }
 
-        adapter = new QuestionAdapter(finalQuestions);
+        adapter = new FaqAdapter(finalQuestions);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 

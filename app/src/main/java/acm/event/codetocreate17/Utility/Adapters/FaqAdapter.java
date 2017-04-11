@@ -15,9 +15,9 @@ import acm.event.codetocreate17.Model.Holders.AnswerViewHolder;
 import acm.event.codetocreate17.Model.Holders.QuestionViewHolder;
 import acm.event.codetocreate17.R;
 
-public class QuestionAdapter extends ExpandableRecyclerViewAdapter<QuestionViewHolder, AnswerViewHolder> {
+public class FaqAdapter extends ExpandableRecyclerViewAdapter<QuestionViewHolder, AnswerViewHolder> {
 
-  public QuestionAdapter(List<? extends ExpandableGroup> groups) {
+  public FaqAdapter(List<? extends ExpandableGroup> groups) {
     super(groups);
   }
 

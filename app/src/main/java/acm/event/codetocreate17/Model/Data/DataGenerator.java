@@ -5,10 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import acm.event.codetocreate17.R;
-import acm.event.codetocreate17.Model.Holders.AbouUsHolder;
 import acm.event.codetocreate17.View.Fragments.AboutFragment;
 
 /**
@@ -78,19 +76,12 @@ public class DataGenerator {
             Calendar cal = Calendar.getInstance();
             Date sys = sdf.parse(sdf.format(cal.getTime()));
             if (sys.compareTo(date1) == -1)
-                //incomplete or inactive
                 return OrderStatus.INACTIVE;
             else if (sys.compareTo(date2) == 0 || sys.compareTo(date2) == 1)
-                //completed
                 return OrderStatus.COMPLETED;
             else
-                //on going or active
                 return OrderStatus.ACTIVE;
-            //if((sys.compareTo(date1)==1||sys.compareTo(date1)==0)&&sys.compareTo(date2)==-1)
-            //  return 0;
-
         } catch (ParseException e) {
-            // Exception handling goes here
             return OrderStatus.INACTIVE;
         }
     }
@@ -132,64 +123,64 @@ public class DataGenerator {
 
     }
 
-    public static AboutFragment.Group getFacultyOrganaiser(AboutFragment aboutFragment) {
-        List<AbouUsHolder> childList=new ArrayList<>();
-        AbouUsHolder child1=new AbouUsHolder();
+    public static AboutGroupModel getFacultyOrganaiser(AboutFragment aboutFragment) {
+        ArrayList<AboutModel> childList=new ArrayList<>();
+        AboutModel child1=new AboutModel();
         child1.setName("Dr. Aswani Kumar Cherukuri");
         child1.setDesignation("Dean\n" +
                 "School of Information Technology & Engineering");
         child1.setImageResource(R.drawable.dean_site);
-        AbouUsHolder child2=new AbouUsHolder();
+        AboutModel child2 = new AboutModel();
         child2.setName("Prof. H.R. Vishwakarma");
         child2.setDesignation("Faculty Sponsor\n" +
                 "ACM VIT Student Chapter");
         child2.setImageResource(R.drawable.hrv);
         childList.add(child1);
         childList.add(child2);
-        AboutFragment.Group group= aboutFragment.new Group(childList);
+        AboutGroupModel group = new AboutGroupModel(childList);
         group.setName("Faculty Organisers");
         return group;
     }
 
-    public static AboutFragment.Group getStudentOrganiser(AboutFragment aboutFragment){
-        List<AbouUsHolder> childList=new ArrayList<>();
-        AbouUsHolder child1=new AbouUsHolder();
+    public static AboutGroupModel getStudentOrganiser(AboutFragment aboutFragment){
+        ArrayList<AboutModel> childList=new ArrayList<>();
+        AboutModel child1=new AboutModel();
         child1.setName("Abhinav Das");
         child1.setDesignation("President");
         child1.setImageResource(R.drawable.abhinav);
-        AbouUsHolder child2=new AbouUsHolder();
+        AboutModel child2=new AboutModel();
         child2.setName("Pranay Gupta");
         child2.setDesignation("Vice President");
         child2.setImageResource(R.drawable.pranay);
-        AbouUsHolder child3=new AbouUsHolder();
+        AboutModel child3=new AboutModel();
         child3.setName("Ashwini Purohit");
         child3.setDesignation("Technical Head");
         child3.setImageResource(R.drawable.ashwini);
-        AbouUsHolder child4=new AbouUsHolder();
+        AboutModel child4=new AboutModel();
         child4.setName("Rahul Nigam");
         child4.setDesignation("Design Head");
         child4.setImageResource(R.drawable.rahul);
-        AbouUsHolder child5=new AbouUsHolder();
+        AboutModel child5=new AboutModel();
         child5.setName("Rishi Raj");
         child5.setDesignation("Deputy Technical Head");
         child5.setImageResource(R.drawable.rishi);
-        AbouUsHolder child6=new AbouUsHolder();
+        AboutModel child6=new AboutModel();
         child6.setName("Mugdha Pandaya");
         child6.setDesignation("General Secretary");
         child6.setImageResource(R.drawable.mugdha);
-        AbouUsHolder child7=new AbouUsHolder();
+        AboutModel child7=new AboutModel();
         child7.setName("Tanish Noah");
         child7.setDesignation("Treasurer");
         child7.setImageResource(R.drawable.tanish);
-        AbouUsHolder child8=new AbouUsHolder();
+        AboutModel child8=new AboutModel();
         child8.setName("Aarti Susan Kuruvilla");
         child8.setDesignation("Communication Head");
         child8.setImageResource(R.drawable.aarti);
-        AbouUsHolder child9=new AbouUsHolder();
+        AboutModel child9=new AboutModel();
         child9.setName("Mallika Rai");
         child9.setDesignation("University Relations");
         child9.setImageResource(R.drawable.mallika);
-        AbouUsHolder child10=new AbouUsHolder();
+        AboutModel child10=new AboutModel();
         child10.setName("Lekhani Ray");
         child10.setDesignation("Membership Coordinator");
         child10.setImageResource(R.drawable.lekhani);
@@ -203,36 +194,33 @@ public class DataGenerator {
         childList.add(child8);
         childList.add(child9);
         childList.add(child10);
-        AboutFragment.Group group= aboutFragment.new Group(childList);
+        AboutGroupModel group= new AboutGroupModel(childList);
         group.setName("Student Organisers");
         return group;
     }
 
-    public static AboutFragment.Group getContacts(AboutFragment aboutFragment)
+    public static AboutGroupModel getContacts(AboutFragment aboutFragment)
     {
-
-        List<AbouUsHolder> childList=new ArrayList<>();
-        AbouUsHolder child1=new AbouUsHolder();
+        ArrayList<AboutModel> childList=new ArrayList<>();
+        AboutModel child1=new AboutModel();
         child1.setName("Facebook");
         child1.setContact(true);
         child1.setImageResource(R.drawable.ic_facebook);
         child1.setDesignation("http://facebook.com/acm.vitu");
 
-        AbouUsHolder child2=new AbouUsHolder();
+        AboutModel child2=new AboutModel();
         child2.setName("Website");
         child2.setContact(true);
         child2.setImageResource(R.drawable.ic_website);
         child2.setDesignation("http://c2c.acmvit.in");
 
-
-
-        AbouUsHolder child3=new AbouUsHolder();
+        AboutModel child3=new AboutModel();
         child3.setName("Mail");
         child3.setContact(true);
         child3.setImageResource(R.drawable.ic_email);
         child3.setDesignation("mailto:outreach@acmvit.in");
 
-        AbouUsHolder child4=new AbouUsHolder();
+        AboutModel child4=new AboutModel();
         child4.setName("CALL");
         child4.setContact(true);
         child4.setImageResource(R.drawable.ic_call);
@@ -244,9 +232,7 @@ public class DataGenerator {
         childList.add(child3);
         childList.add(child4);
 
-
-
-        AboutFragment.Group group= aboutFragment.new Group(childList);
+        AboutGroupModel group = new AboutGroupModel(childList);
         group.setName("Contact Us");
         return group;
     }

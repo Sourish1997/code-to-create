@@ -4,7 +4,6 @@ package acm.event.codetocreate17.View.Fragments;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -15,17 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-
-import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
-
-
 import java.util.ArrayList;
-import java.util.List;
 
+import acm.event.codetocreate17.Model.Data.AboutGroupModel;
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.R;
-
 import acm.event.codetocreate17.Utility.Adapters.AboutAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +32,8 @@ public class AboutFragment extends Fragment implements ScreenShotable {
     RecyclerView aboutRecyclerView;
 
     private Bitmap bitmap;
-    private List<Group> groupList;
-    private AboutAdapter.MyAdapter myAdapter;
+    private ArrayList<AboutGroupModel> groupList;
+    private AboutAdapter aboutAdapter;
 
 
     @Override
@@ -65,17 +58,15 @@ public class AboutFragment extends Fragment implements ScreenShotable {
         if (animator instanceof DefaultItemAnimator) {
             ((DefaultItemAnimator) animator).setSupportsChangeAnimations(false);
         }
-
         return rootView;
     }
 
     private void setAboutData() {
-
         groupList.add(DataGenerator.getFacultyOrganaiser(this));
         groupList.add(DataGenerator.getStudentOrganiser(this));
         groupList.add(DataGenerator.getContacts(this));
-        myAdapter = new AboutAdapter.MyAdapter(getContext(), groupList);
-        aboutRecyclerView.setAdapter(myAdapter);
+        aboutAdapter = new AboutAdapter(getContext(), groupList);
+        aboutRecyclerView.setAdapter(aboutAdapter);
     }
 
     @Override
@@ -96,40 +87,5 @@ public class AboutFragment extends Fragment implements ScreenShotable {
     public Bitmap getBitmap() {
         return bitmap;
     }
-
-
-    public class Group implements ParentListItem {
-
-
-        private List mItems;
-        private String name;
-
-        public Group(List items) {
-            mItems = items;
-        }
-
-
-        @Override
-        public List<?> getChildItemList() {
-            return mItems;
-        }
-
-        @Override
-        public boolean isInitiallyExpanded() {
-            return false;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-
-    }
-
-
-        }
+}
 
