@@ -5,6 +5,7 @@
     android:id="@+id/login_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="acm.event.codetocreate17.View.Authentication.LoginActivity">
 
     <ImageView
@@ -122,6 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Username"
+                    android:maxLines="1"
                     android:selectAllOnFocus="false" />
             </android.support.design.widget.TextInputLayout>
 
@@ -147,6 +149,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Password"
+                    android:maxLines="1"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
