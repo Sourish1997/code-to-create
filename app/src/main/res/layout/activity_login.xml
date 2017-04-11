@@ -120,10 +120,14 @@
 
                 <EditText
                     android:id="@+id/login_username"
+                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Username"
                     android:maxLines="1"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/login_password"
                     android:selectAllOnFocus="false" />
             </android.support.design.widget.TextInputLayout>
 
@@ -150,6 +154,7 @@
                     android:ems="10"
                     android:hint="Password"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
