@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
     ConstraintLayout couponsContainer;
     @BindView(R.id.coupons_recycler_view)
     RecyclerView couponsRecyclerView;
+    @BindView(R.id.coupons_guest_card)
+    CardView couponsGuestCard;
 
     CouponsAdapter couponsAdapter;
     ProgressDialog progressDialog;
@@ -66,46 +69,52 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
         View rootView = inflater.inflate(R.layout.fragment_coupons, container, false);
         ButterKnife.bind(this, rootView);
 
-        couponTitles = new DataGenerator().getCouponTitles();
-        couponTitlesList = new ArrayList<>(Arrays.asList(couponTitles));
+        if(Constants.isGuest) {
+            couponsRecyclerView.setVisibility(View.INVISIBLE);
+            couponsGuestCard.setVisibility(View.VISIBLE);
+        } else {
+            couponTitles = new DataGenerator().getCouponTitles();
+            couponTitlesList = new ArrayList<>(Arrays.asList(couponTitles));
 
-        couponPrimaryImages = new DataGenerator().getCouponPrimaryImages();
-        couponPrimaryImagesList = new ArrayList<>();
-        for(int i = 0; i < couponPrimaryImages.length; i++)
-            couponPrimaryImagesList.add(couponPrimaryImages[i]);
+            couponPrimaryImages = new DataGenerator().getCouponPrimaryImages();
+            couponPrimaryImagesList = new ArrayList<>();
+            for (int i = 0; i < couponPrimaryImages.length; i++)
+                couponPrimaryImagesList.add(couponPrimaryImages[i]);
 
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Initializing QR Codes...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Initializing QR Codes...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
-        Thread qrCodesInitializeThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                qrCodes = new Bitmap[couponTitles.length];
-                qrCodesList = new ArrayList<>();
-                for(int i = 0; i < qrCodes.length; i++) {
-                    try {
-                        qrCodes[i] = TextToImageEncode(userId + " " + couponTitles[i]);
-                        qrCodesList.add(qrCodes[i]);
-                    } catch (WriterException e) {}
+            Thread qrCodesInitializeThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    qrCodes = new Bitmap[couponTitles.length];
+                    qrCodesList = new ArrayList<>();
+                    for (int i = 0; i < qrCodes.length; i++) {
+                        try {
+                            qrCodes[i] = TextToImageEncode(userId + " " + couponTitles[i]);
+                            qrCodesList.add(qrCodes[i]);
+                        } catch (WriterException e) {
+                        }
+                    }
+                    sharedPreferences = getActivity().getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
+                    userId = sharedPreferences.getString("userid", "");
+
+                    couponsAdapter = new CouponsAdapter(couponTitlesList, couponPrimaryImagesList, qrCodesList);
+                    getActivity().runOnUiThread(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    couponsRecyclerView.setAdapter(couponsAdapter);
+                                    couponsRecyclerView.setLayoutManager(new LinearLayoutManager(couponsRecyclerView.getContext()));
+                                    progressDialog.dismiss();
+                                }
+                            });
                 }
-                sharedPreferences = getActivity().getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
-                userId = sharedPreferences.getString("userid", "");
-
-                couponsAdapter = new CouponsAdapter(couponTitlesList, couponPrimaryImagesList, qrCodesList);
-                getActivity().runOnUiThread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                couponsRecyclerView.setAdapter(couponsAdapter);
-                                couponsRecyclerView.setLayoutManager(new LinearLayoutManager(couponsRecyclerView.getContext()));
-                                progressDialog.dismiss();
-                            }
-                        });
-            }
-        });
-        qrCodesInitializeThread.start();
+            });
+            qrCodesInitializeThread.start();
+        }
         return rootView;
     }
 

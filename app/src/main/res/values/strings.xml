@@ -9,6 +9,7 @@
     <string name="about_us_event_description">Dummy Content.</string>
     <string name="quiz_intro_heading">About This Quiz</string>
     <string name="quiz_done_messgae">All Done!</string>
+    <string name="coupons_guest_message">Food Coupons Are For Participants Only!</string>
     <string name="quiz_intro_body">This quiz will be live during the hackathon to determine the pitching
         order of the different teams. The questions will be in MCQ format with four options each. For each question, drag
         the question card to one of the 4 screen corners to make your choice.\n\nChoice 1: Top Left Corner
