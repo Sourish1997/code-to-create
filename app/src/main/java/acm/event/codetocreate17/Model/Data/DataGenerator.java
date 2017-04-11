@@ -87,15 +87,16 @@ public class DataGenerator {
     }
     public static String getSponsorTitle(int i)
     {
-        String title[] = {"Sponsor","Sponsor","Sponsor","Sponsor","Sponsor","Sponsor","Sponsor","Sponsor"};
+        String title[] = {"Title Sponsor","Title Sponsor","Cloud Patner","Sponsor","Sponsor","Sponsor","Collaborator",
+                "Collaborator","Collaborator"};
         return title[i];
 
     }
 
     public static int pathToImage(int i)
     {
-        int title[] = {R.drawable.aisec_tt,R.drawable.oil_t,R.drawable.digitalocean,R.drawable.hackerrank,R.drawable.dakshinamurti
-        ,R.drawable.transits,R.drawable.tricentis,R.drawable.winuall};
+        int title[] = {R.drawable.transits,R.drawable.tricentis,R.drawable.digitalocean,R.drawable.oil_t,R.drawable.dakshinamurti
+        ,R.drawable.winuall,R.drawable.cardea,R.drawable.vicara,R.drawable.paypal};
         return title[i];
 
     }
@@ -208,7 +209,7 @@ public class DataGenerator {
         child4.setName("CALL");
         child4.setContact(true);
         child4.setImageResource(R.drawable.ic_call);
-        child4.setDesignation("tel:919585386705");
+        child4.setDesignation("tel:919791085772");
 
 
         childList.add(child1);
@@ -217,7 +218,7 @@ public class DataGenerator {
         childList.add(child4);
 
         AboutGroupModel group = new AboutGroupModel(childList);
-        group.setName("Contact Us");
+        group.setName("Contact us");
         return group;
     }
 
