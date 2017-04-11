@@ -30,6 +30,7 @@ import com.wenchao.cardstack.CardStack;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.Model.Data.QuizQuestionModel;
 import acm.event.codetocreate17.Model.RealmModels.User;
 import acm.event.codetocreate17.Model.RetroAPI.RetroAPI;
@@ -74,10 +75,12 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     int cardCount = 15;
     int noOfQuestions = 30;
     int lastQuestion = 0;
+    int lastQuestionIndex = 0;
     int marks = 0;
     int[] questionArray;
     private boolean isLeader;
     private boolean finished = false;
+    private QuizQuestionModel[] quizDatabase;
     private boolean initialDataReceived = false;
     private boolean updateSent = true;
     private Bitmap bitmap;
@@ -107,6 +110,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         realm = Realm.getDefaultInstance();
         user = realm.where(User.class).findFirst();
 
+        quizDatabase = new DataGenerator().qetQuizDatabase();
         retroAPI = new RetroAPI();
         questionArray = new int[15];
 
@@ -244,8 +248,10 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                     lastQuestion = jsonObject.getAsJsonObject("quiz").get("lastQ").getAsInt();
                                     marks = jsonObject.getAsJsonObject("quiz").get("marks").getAsInt();
                                     for(int i = 0; i < qArray.size(); i++)
-                                        if(questionArray[i] == lastQuestion)
+                                        if(questionArray[i] == lastQuestion) {
                                             cardCount = 15 - i - 1;
+                                            lastQuestionIndex = i;
+                                        }
                                     progressDialog.dismiss();
                                     showQuiz();
                                 } else if (started && finished) {
@@ -275,9 +281,8 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     }
 
     public void showQuiz() {
-        model = new QuizQuestionModel(getResources().getString(R.string.sample_question), getResources().getStringArray(R.array.sample_question_options), 1);
-        for(int i = 0; i < cardCount; i++)
-            swipeCardAdapter.add(model);
+        for(int i = lastQuestion + 1; i < 15; i++)
+            swipeCardAdapter.add(quizDatabase[questionArray[i]]);
         questionStack.setAdapter(swipeCardAdapter);
 
         Animation slideOutAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_out);

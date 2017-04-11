@@ -47,6 +47,7 @@ public class SponsorFragment extends Fragment implements ScreenShotable {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new SponsorAdapter(getDataSet());
         recyclerView.setAdapter(mAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
 
         return rootView;
     }

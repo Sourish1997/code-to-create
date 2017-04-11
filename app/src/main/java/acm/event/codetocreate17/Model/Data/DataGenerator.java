@@ -318,4 +318,14 @@ public class DataGenerator {
         };
         return correctOptions;
     }
+
+    public QuizQuestionModel[] qetQuizDatabase() {
+        QuizQuestionModel[] quizDatabase = new QuizQuestionModel[30];
+        String[] questions = quizQuestions();
+        String[][] options = quizQuestionOptions();
+        int[] correctOptions = correctOptions();
+        for(int i = 0; i < quizDatabase.length; i++)
+            quizDatabase[i] = new QuizQuestionModel(questions[i], options[i], correctOptions[i]);
+        return quizDatabase;
+    }
 }

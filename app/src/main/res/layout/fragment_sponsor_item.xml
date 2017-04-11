@@ -8,20 +8,19 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="@dimen/card_horizontal_margin"
         android:layout_marginRight="@dimen/card_horizontal_margin"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        card_view:cardElevation="5dp"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="10dp"
-        >
+        card_view:cardElevation="5dp"
+        card_view:contentPadding="10dp">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="fill_parent">
 
             <View

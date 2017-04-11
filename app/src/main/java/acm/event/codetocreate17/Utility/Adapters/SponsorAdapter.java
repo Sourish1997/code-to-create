@@ -21,9 +21,6 @@ public class SponsorAdapter extends RecyclerView.Adapter<SponsorAdapter.MyViewHo
         public TextView title;
         public ImageView sponsor;
 
-
-
-
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.sponsor_title);
@@ -47,8 +44,6 @@ public class SponsorAdapter extends RecyclerView.Adapter<SponsorAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        DataGenerator sponsorObj= sponsorsList.get(position);
-
         holder.title.setText(sponsorsList.get(position).getSponsorTitle(position));
         holder.sponsor.setImageResource(sponsorsList.get(position).pathToImage(position));
     }
