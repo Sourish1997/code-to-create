@@ -14,7 +14,7 @@ import acm.event.codetocreate17.R;
  */
 
 public class CouponsHolder extends RecyclerView.ViewHolder {
-    public ImageView barcode, primaryImage, secondaryImage;
+    public ImageView barcode, primaryImage;
     public TextView title;
     public FoldingCell foldingCell;
 
@@ -22,7 +22,6 @@ public class CouponsHolder extends RecyclerView.ViewHolder {
         super(itemView);
         barcode = (ImageView) itemView.findViewById(R.id.coupon_barcode);
         primaryImage = (ImageView) itemView.findViewById(R.id.coupon_primary_image);
-        secondaryImage = (ImageView) itemView.findViewById(R.id.coupon_secondary_image);
         title = (TextView) itemView.findViewById(R.id.coupon_title);
         foldingCell = (FoldingCell) itemView.findViewById(R.id.coupon_folding_cell);
         foldingCell.setOnClickListener(new View.OnClickListener() {

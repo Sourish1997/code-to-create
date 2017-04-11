@@ -8,7 +8,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,8 +79,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setClickable(false);
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        Log.e("message", username);
-        Log.e("message", password);
         retroAPI.observableAPIService.signIn(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -107,11 +104,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(JsonObject jsonObject) {
-                        Log.e("message", "Inside on next");
                         if(jsonObject.get("success").getAsBoolean()){
-                            Log.e("message", jsonObject.get("success").getAsString());
                             sharedPreferencesEditor.putBoolean("loggedin",true);
                             sharedPreferencesEditor.putString("authtoken",jsonObject.get("token").getAsString());
+                            sharedPreferencesEditor.putString("userid", jsonObject.getAsJsonObject("user").get("id").getAsString());
                             sharedPreferencesEditor.commit();
                             Constants.accessToken = jsonObject.get("token").getAsString();
                             User user = new User();

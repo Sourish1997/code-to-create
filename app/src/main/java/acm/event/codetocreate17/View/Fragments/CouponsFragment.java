@@ -1,5 +1,7 @@
 package acm.event.codetocreate17.View.Fragments;
 
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -12,17 +14,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import acm.event.codetocreate17.Model.Data.DataGenerator;
-import acm.event.codetocreate17.Model.RealmModels.User;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.CouponsAdapter;
+import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.Realm;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class CouponsFragment extends Fragment implements ScreenShotable {
     @BindView(R.id.coupons_root_view)
@@ -31,11 +39,16 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
     RecyclerView couponsRecyclerView;
 
     CouponsAdapter couponsAdapter;
-    Realm realm;
-    User user;
+    ProgressDialog progressDialog;
+    SharedPreferences sharedPreferences;
     String[] couponTitles;
+    String userId;
     int[] couponPrimaryImages;
 
+    private ArrayList<Bitmap> qrCodesList;
+    private ArrayList<String> couponTitlesList;
+    private ArrayList<Integer> couponPrimaryImagesList;
+    private Bitmap[] qrCodes;
     private Bitmap bitmap;
 
     @Override
@@ -53,22 +66,81 @@ public class CouponsFragment extends Fragment implements ScreenShotable {
         View rootView = inflater.inflate(R.layout.fragment_coupons, container, false);
         ButterKnife.bind(this, rootView);
 
-        Realm.init(this.getActivity());
-        realm = Realm.getDefaultInstance();
-        user = realm.where(User.class).findFirst();
-
         couponTitles = new DataGenerator().getCouponTitles();
-        ArrayList<String> cTitles = new ArrayList<>(Arrays.asList(couponTitles));
+        couponTitlesList = new ArrayList<>(Arrays.asList(couponTitles));
 
         couponPrimaryImages = new DataGenerator().getCouponPrimaryImages();
-        ArrayList<Integer> cPrimaryImages = new ArrayList<>();
+        couponPrimaryImagesList = new ArrayList<>();
         for(int i = 0; i < couponPrimaryImages.length; i++)
-            cPrimaryImages.add(couponPrimaryImages[i]);
+            couponPrimaryImagesList.add(couponPrimaryImages[i]);
 
-        couponsAdapter = new CouponsAdapter(cTitles, cPrimaryImages);
-        couponsRecyclerView.setAdapter(couponsAdapter);
-        couponsRecyclerView.setLayoutManager(new LinearLayoutManager(couponsRecyclerView.getContext()));
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Initializing QR Codes...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        Thread qrCodesInitializeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                qrCodes = new Bitmap[couponTitles.length];
+                qrCodesList = new ArrayList<>();
+                for(int i = 0; i < qrCodes.length; i++) {
+                    try {
+                        qrCodes[i] = TextToImageEncode(userId + " " + couponTitles[i]);
+                        qrCodesList.add(qrCodes[i]);
+                    } catch (WriterException e) {}
+                }
+                sharedPreferences = getActivity().getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
+                userId = sharedPreferences.getString("userid", "");
+
+                couponsAdapter = new CouponsAdapter(couponTitlesList, couponPrimaryImagesList, qrCodesList);
+                getActivity().runOnUiThread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                couponsRecyclerView.setAdapter(couponsAdapter);
+                                couponsRecyclerView.setLayoutManager(new LinearLayoutManager(couponsRecyclerView.getContext()));
+                                progressDialog.dismiss();
+                            }
+                        });
+            }
+        });
+        qrCodesInitializeThread.start();
         return rootView;
+    }
+
+    private Bitmap TextToImageEncode(String Value) throws WriterException {
+        BitMatrix bitMatrix;
+        try {
+            bitMatrix = new MultiFormatWriter().encode(
+                    Value,
+                    BarcodeFormat.DATA_MATRIX.QR_CODE,
+                    500, 500, null
+            );
+
+        } catch (IllegalArgumentException Illegalargumentexception) {
+
+            return null;
+        }
+        int bitMatrixWidth = bitMatrix.getWidth();
+
+        int bitMatrixHeight = bitMatrix.getHeight();
+
+        int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
+
+        for (int y = 0; y < bitMatrixHeight; y++) {
+            int offset = y * bitMatrixWidth;
+
+            for (int x = 0; x < bitMatrixWidth; x++) {
+
+                pixels[offset + x] = bitMatrix.get(x, y) ?
+                        getResources().getColor(R.color.white):getResources().getColor(R.color.cardColorBackground);
+            }
+        }
+        Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
+
+        bitmap.setPixels(pixels, 0, 500, 0, 0, bitMatrixWidth, bitMatrixHeight);
+        return bitmap;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package acm.event.codetocreate17.Utility.Adapters;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -16,13 +17,12 @@ import acm.event.codetocreate17.R;
 public class CouponsAdapter extends RecyclerView.Adapter {
     ArrayList<String> couponTitles;
     ArrayList<Integer> primaryimages;
-    /*ArrayList<Integer> secondaryImages;
-    ArrayList<Integer> barcodes;*/
+    ArrayList<Bitmap> qrCodes;
 
-    public CouponsAdapter(ArrayList<String> couponTitles, ArrayList<Integer> primaryimages/*, ArrayList<Integer> secondaryImages, ArrayList<Integer> barcodes*/) {
+    public CouponsAdapter(ArrayList<String> couponTitles, ArrayList<Integer> primaryimages, ArrayList<Bitmap> qrCodes) {
         this.couponTitles = couponTitles;
         this.primaryimages = primaryimages;
-        //this.secondaryImages = secondaryImages;
+        this.qrCodes = qrCodes;
     }
 
     @Override
@@ -35,6 +35,7 @@ public class CouponsAdapter extends RecyclerView.Adapter {
         CouponsHolder couponsHolder = (CouponsHolder) holder;
         couponsHolder.title.setText(couponTitles.get(position));
         couponsHolder.primaryImage.setImageResource(primaryimages.get(position));
+        couponsHolder.barcode.setImageBitmap(qrCodes.get(position));
     }
 
     @Override

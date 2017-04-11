@@ -3,59 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:folding-cell="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <com.ramotion.foldingcell.FoldingCell
         android:id="@+id/coupon_folding_cell"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp">
-        ​
+        app:backSideColor="@color/cardColorBackground">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:accessibilityTraversalBefore="@+id/coupon_folding_cell"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:cardBackgroundColor="#414141">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/coupon_secondary_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="182dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/av_male" />
+                android:layout_height="364dp"
+                android:background="#414141">
 
                 <ImageView
                     android:id="@+id/coupon_barcode"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="57dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
+                    android:layout_marginTop="57dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/coupon_secondary_image"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/abhinav" />
             </android.support.constraint.ConstraintLayout>
 
@@ -63,13 +45,13 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#414141">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false">
+                android:layout_height="182dp"
+                android:background="#414141">
 
                 <ImageView
                     android:id="@+id/coupon_primary_image"
@@ -79,14 +61,13 @@
                     app:layout_constraintLeft_toRightOf="@+id/linearLayout"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/av_male" />
+                    app:srcCompat="@drawable/ic_coffee" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="60dp"
                     android:layout_height="182dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
                     android:background="@color/colorAccent"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
