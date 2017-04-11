@@ -14,6 +14,7 @@ import acm.event.codetocreate17.View.Fragments.AboutFragment;
  */
 
 public class DataGenerator {
+
     public DataGenerator()
     {}
     public DataGenerator(String text1, String text2){
@@ -150,33 +151,43 @@ public class DataGenerator {
             children[i] = new AboutModel();
         children[0].setName("Abhinav Das");
         children[0].setDesignation("President");
+        children[0].setContact(false);
         children[0].setImageResource(R.drawable.abhinav);
         children[1].setName("Pranay Gupta");
         children[1].setDesignation("Vice President");
+        children[1].setContact(false);
         children[1].setImageResource(R.drawable.pranay);
         children[2].setName("Ashwini Purohit");
         children[2].setDesignation("Technical Head");
+        children[2].setContact(false);
         children[2].setImageResource(R.drawable.ashwini);
         children[3].setName("Rahul Nigam");
         children[3].setDesignation("Design Head");
+        children[3].setContact(false);
         children[3].setImageResource(R.drawable.rahul);
         children[4].setName("Rishi Raj");
         children[4].setDesignation("Deputy Technical Head");
+        children[4].setContact(false);
         children[4].setImageResource(R.drawable.rishi);
         children[5].setName("Mugdha Pandaya");
         children[5].setDesignation("General Secretary");
+        children[5].setContact(false);
         children[5].setImageResource(R.drawable.mugdha);
         children[6].setName("Tanish Noah");
         children[6].setDesignation("Treasurer");
+        children[6].setContact(false);
         children[6].setImageResource(R.drawable.tanish);
         children[7].setName("Aarti Susan Kuruvilla");
         children[7].setDesignation("Communication Head");
+        children[7].setContact(false);
         children[7].setImageResource(R.drawable.aarti);
         children[8].setName("Mallika Rai");
         children[8].setDesignation("University Relations");
+        children[8].setContact(false);
         children[8].setImageResource(R.drawable.mallika);
         children[9].setName("Lekhani Ray");
         children[9].setDesignation("Membership Coordinator");
+        children[9].setContact(false);
         children[9].setImageResource(R.drawable.lekhani);
         for(int i = 0; i < 10; i++) childList.add(children[i]);
         AboutGroupModel group= new AboutGroupModel(childList);

@@ -3,9 +3,7 @@ package acm.event.codetocreate17.Model.Data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by HP-HP on 05-12-2015.
- */
+
 public class TimeLineModel implements Parcelable {
 
     private String mMessage;

@@ -7,18 +7,14 @@ import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-
 
 import com.github.vipulasri.timelineview.TimelineView;
 
 import java.util.List;
-
 
 import acm.event.codetocreate17.Model.Data.DataGenerator;
 import acm.event.codetocreate17.Model.Data.TimeLineModel;
@@ -81,13 +77,27 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
             holder.mDate.setTextColor(Color.parseColor("#FFFFFF"));
             holder.mMessage.setTextSize(18);
             holder.mMessage.setPadding(0,0,0,50);
+            Log.e("check",Integer.toString(position));
             ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) holder.guideline.getLayoutParams();
             lp.guidePercent = 1;
             holder.guideline.setLayoutParams(lp);
             holder.mTimelineView.setMarker(VectorDrawableUtility.getDrawable(mContext, R.drawable.ic_marker_active, R.color.colorAccent));
         } else {
-
             holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_marker), ContextCompat.getColor(mContext, R.color.colorAccent));
+        }
+
+        if(timeLineModel.getStatus() != DataGenerator.OrderStatus.ACTIVE) {
+            holder.mCard.setElevation(5f);
+            holder.mCard.setCardBackgroundColor(Color.parseColor("#414141"));
+            holder.mDate.setTextSize(15);
+            holder.mDate.setPadding(0,0,0,0);
+            holder.mDate.setTextColor(Color.parseColor("#1EB76E"));
+            holder.mMessage.setTextSize(14);
+            holder.mMessage.setPadding(0,0,0,0);
+            Log.e("check",Integer.toString(position));
+            ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) holder.guideline.getLayoutParams();
+            lp.guidePercent = (float) 0.95;
+            holder.guideline.setLayoutParams(lp);
         }
 
         if(!timeLineModel.getDate().isEmpty()) {
@@ -96,7 +106,6 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
         }
         else
             holder.mDate.setVisibility(View.GONE);
-            //setAnimation(holder.mCard, position);
 
         holder.mMessage.setText(timeLineModel.getMessage());
     }
@@ -105,16 +114,4 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
     public int getItemCount() {
         return (mFeedList!=null? mFeedList.size():0);
     }
-
-    private void setAnimation(View viewToAnimate, int position)
-    {
-
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.slide_in_right);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
-    }
-
 }
