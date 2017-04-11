@@ -115,7 +115,7 @@ public class DataGenerator {
     }
 
     public int[] getCouponPrimaryImages() {
-        int[] couponsIds = new int[] {R.drawable.ic_coffee, R.drawable.ic_breakfast, R.drawable.ic_lunch, R.drawable.ic_snacks, R.drawable.ic_spaghetti};
+        int[] couponsIds = new int[] {R.drawable.ic_coffee, R.drawable.ic_breakfast, R.drawable.ic_lunch, R.drawable.ic_snacks, R.drawable.ic_dinner};
         return couponsIds;
     }
 

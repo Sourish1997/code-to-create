@@ -117,13 +117,13 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
         }
         SlideMenuItem menuItem4 = new SlideMenuItem("Quiz", R.drawable.ic_quiz);
         list.add(menuItem4);
-        SlideMenuItem menuItem5 = new SlideMenuItem("Coupons", R.drawable.ic_coupons);
+        SlideMenuItem menuItem5 = new SlideMenuItem("Coupons", R.drawable.ic_coupon);
         list.add(menuItem5);
-        SlideMenuItem menuItem6 = new SlideMenuItem("About Us", R.drawable.ic_info);
+        SlideMenuItem menuItem6 = new SlideMenuItem("About Us", R.drawable.ic_about);
         list.add(menuItem6);
         SlideMenuItem menuItem7 = new SlideMenuItem("FAQ", R.drawable.ic_faq);
         list.add(menuItem7);
-        SlideMenuItem menuItem8 = new SlideMenuItem("Sponsors", R.drawable.ic_sponsors);
+        SlideMenuItem menuItem8 = new SlideMenuItem("Sponsors", R.drawable.ic_sponsor);
         list.add(menuItem8);
         SlideMenuItem menuItem9 = new SlideMenuItem("Logout", R.drawable.ic_logout);
         list.add(menuItem9);

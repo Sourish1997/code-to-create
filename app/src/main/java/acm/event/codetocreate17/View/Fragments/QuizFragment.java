@@ -109,13 +109,17 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         retroAPI = new RetroAPI();
         questionArray = new int[15];
 
-        isLeader = user.isLeader;
-        if(Constants.accessToken.equals("Unauthorized")) {
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
-            Constants.accessToken = sharedPreferences.getString("authtoken", "Unauthorized");
+        if(!Constants.isGuest) {
+            isLeader = user.isLeader;
+            if (Constants.accessToken.equals("Unauthorized")) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.sharedPreferenceName, MODE_PRIVATE);
+                Constants.accessToken = sharedPreferences.getString("authtoken", "Unauthorized");
+            }
         }
 
-        getQuizData();
+        if(!Constants.isGuest)
+            if(isLeader)
+                getQuizData();
 
         return rootView;
     }
