@@ -234,7 +234,7 @@ public class DataGenerator {
         childList.add(child4);
 
         AboutGroupModel group = new AboutGroupModel(childList);
-        group.setName("Contact Us");
+        group.setName("Contact us");
         return group;
     }
 
