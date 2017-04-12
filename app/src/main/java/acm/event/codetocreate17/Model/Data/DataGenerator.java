@@ -57,7 +57,7 @@ public class DataGenerator {
         String Event[] = {"Registration","Introduction","Hack begins","Late Night Dinner",
                 "Breakfast break","Fun activity","Lunch break","Technical inspection - 1","Red List Announcement",
                 "Snacks break","Dinner break","Sponsor presentation","Quiz",
-        "Technical inspection - 2","Final pitching list","Final pitch","Hack ends"};
+        "Technical inspection - 2","Final pitching list","Final pitch","Hack ends","Pitch Trivia"};
         return Event[i];
 
     }
@@ -67,7 +67,7 @@ public class DataGenerator {
         String Date[] = {"2017-04-13 19:00","2017-04-13 20:00","2017-04-13 22:30","2017-04-13 23:30",
                 "2017-04-14 9:00","2017-04-14 11:30","2017-04-14 13:00","2017-04-14 15:30",
                 "2017-04-14 17:00","2017-04-14 18:00","2017-04-14 21:10","2017-04-14 22:00","2017-04-14 23:30"
-        ,"2017-04-15 2:00","2017-04-15 6:00","2017-04-15 9:00","2017-04-15 12:00","2017-04-15 18:00"};
+        ,"2017-04-15 2:00","2017-04-15 6:00","2017-04-15 9:00","2017-04-15 12:00","2017-04-15 18:00","2017-04-15 18:00"};
         return Date[i];
 
     }
