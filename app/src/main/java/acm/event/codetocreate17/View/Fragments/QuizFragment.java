@@ -39,6 +39,7 @@ import acm.event.codetocreate17.Model.RetroAPI.RetroAPI;
 import acm.event.codetocreate17.R;
 import acm.event.codetocreate17.Utility.Adapters.SwipeCardAdapter;
 import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
+import acm.event.codetocreate17.View.Main.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -222,6 +223,12 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                         public void onClick(DialogInterface dialog, int id) {
                                             getQuizData();
                                         }
+                                    })
+                                    .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            ((MainActivity) getActivity()).animatedLoadTeamFragment();
+                                        }
                                     });
                             AlertDialog alertDialog = builder.create();
                             alertDialog.show();
@@ -402,6 +409,12 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                     public void onClick(DialogInterface dialog, int id) {
                                         showUpdateProgressDialog();
                                     }
+                                })
+                                .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        ((MainActivity) getActivity()).animatedLoadTeamFragment();
+                                    }
                                 });
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
@@ -454,6 +467,12 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                 .setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         quizFinished();
+                                    }
+                                })
+                                .setNegativeButton("HOME", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        ((MainActivity) getActivity()).animatedLoadTeamFragment();
                                     }
                                 });
                         AlertDialog alertDialog = builder.create();
