@@ -93,7 +93,7 @@ public class DataGenerator {
 
     public static String getSponsorTitle(int i)
     {
-        String title[] = {"Title Sponsor","Title Sponsor","Cloud Patner","Sponsor","Sponsor","Sponsor","Collaborator",
+        String title[] = {"Title Sponsor","Title Sponsor","Cloud Patner","Sponsor","Sponsor","Sponsor",
                 "Collaborator"};
         return title[i];
     }
@@ -101,7 +101,7 @@ public class DataGenerator {
     public static int pathToImage(int i)
     {
         int title[] = {R.drawable.transits,R.drawable.tricentis,R.drawable.digitalocean,R.drawable.oil_t,R.drawable.dakshinamurti
-        ,R.drawable.winuall,R.drawable.cardea,R.drawable.vicara};
+        ,R.drawable.winuall,R.drawable.vicara};
         return title[i];
 
     }

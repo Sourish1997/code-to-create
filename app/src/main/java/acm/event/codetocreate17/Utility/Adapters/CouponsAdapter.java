@@ -33,6 +33,7 @@ public class CouponsAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         CouponsHolder couponsHolder = (CouponsHolder) holder;
+        couponsHolder.foldingCell.fold(true);
         couponsHolder.title.setText(couponTitles.get(position));
         couponsHolder.primaryImage.setImageResource(primaryimages.get(position));
         couponsHolder.barcode.setImageBitmap(qrCodes.get(position));

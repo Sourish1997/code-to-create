@@ -75,10 +75,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signin(){
-        loginButton.setText("SIGNING IN...");
-        loginButton.setClickable(false);
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        if(username.equals("") || password.equals("")) {
+            usernameLayout.setError("Enter valid username");
+            passwordLayout.setError("Enter valid password");
+            return;
+        }
+        loginButton.setText("SIGNING IN...");
+        loginButton.setClickable(false);
         retroAPI.observableAPIService.signIn(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
