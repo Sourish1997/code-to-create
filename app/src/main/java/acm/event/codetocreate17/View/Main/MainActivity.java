@@ -342,6 +342,7 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
 
         viewAnimator = new ViewAnimator<>(this, list, loadTeamFragment(), drawerLayout, this);
         refreshed = true;
+        refreshButton.setVisibility(View.VISIBLE);
     }
 
     public Bitmap takeScreenShot(View view) {
