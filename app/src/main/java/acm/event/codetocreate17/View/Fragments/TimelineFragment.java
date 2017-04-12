@@ -79,7 +79,7 @@ public class TimelineFragment extends Fragment implements ScreenShotable {
     }
 
     private void setDataListItems(){
-        for(int i=0; i<19 ; i++)
+        for(int i=0; i<16 ; i++)
         {
             mDataList.add(new TimeLineModel(getTimelineEvent(i),getTimelineDate(i),DataGenerator.checkOderStatus(getTimelineDate(i),getTimelineDate(i+1))));
         }

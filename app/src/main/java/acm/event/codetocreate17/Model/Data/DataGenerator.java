@@ -54,20 +54,20 @@ public class DataGenerator {
 
     public static String getTimelineEvent(int i)
     {
-        String Event[] = {"Registration","Introduction","Hack begins","Dinner","Beverage period",
+        String Event[] = {"Registration","Introduction","Hack begins","Late Night Dinner",
                 "Breakfast break","Fun activity","Lunch break","Technical inspection - 1","Red List Announcement",
-                "Snacks break","Fun activity","Dinner break","Sponsor presentation","Quiz",
-        "Technical inspection - 2","Final pitch list","Final pitch","Hack ends"};
+                "Snacks break","Dinner break","Sponsor presentation","Quiz",
+        "Technical inspection - 2","Final pitching list","Final pitch","Hack ends"};
         return Event[i];
 
     }
 
     public static String getTimelineDate(int i)
     {
-        String Date[] = {"2017-04-13 19:00","2017-04-13 21:00","2017-04-13 22:00","2017-04-13 23:30","2017-04-14 00:00",
-                "2017-04-14 9:00","2017-04-14 11:30","2017-04-14 13:00","2017-04-14 15:00",
-                "2017-04-14 17:00","2017-04-14 18:00","2017-04-14 19:30","2017-04-14 21:00","2017-04-14 22:00","2017-04-14 23:30"
-        ,"2017-04-15 2:00","2017-04-15 6:00","2017-04-15 8:30","2017-04-15 12:00","2017-04-15 18:00"};
+        String Date[] = {"2017-04-13 19:00","2017-04-13 20:00","2017-04-13 22:30","2017-04-13 23:30",
+                "2017-04-14 9:00","2017-04-14 11:30","2017-04-14 13:00","2017-04-14 15:30",
+                "2017-04-14 17:00","2017-04-14 18:00","2017-04-14 21:10","2017-04-14 22:00","2017-04-14 23:30"
+        ,"2017-04-15 2:00","2017-04-15 6:00","2017-04-15 9:00","2017-04-15 12:00","2017-04-15 18:00"};
         return Date[i];
 
     }
@@ -206,7 +206,7 @@ public class DataGenerator {
         child1.setName("Facebook");
         child1.setContact(true);
         child1.setImageResource(R.drawable.ic_facebook);
-        child1.setDesignation("http://facebook.com/acm.vitu");
+        child1.setDesignation("http://www.facebook.com/acm.vitu");
 
         AboutModel child2=new AboutModel();
         child2.setName("Website");
