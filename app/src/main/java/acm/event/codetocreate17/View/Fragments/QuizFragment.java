@@ -277,6 +277,9 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
                                     Snackbar snackbar = Snackbar
                                             .make(quizContainer, "Quiz is not live!!", Snackbar.LENGTH_LONG);
                                     snackbar.show();
+                                } else {
+                                    initialDataReceived = true;
+                                    progressDialog.dismiss();
                                 }
                             }
                             if(!initialDataReceived)
