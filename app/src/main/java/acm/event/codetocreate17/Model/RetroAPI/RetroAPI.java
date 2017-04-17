@@ -9,8 +9,6 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 
 import acm.event.codetocreate17.Utility.Miscellaneous.Constants;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,13 +29,13 @@ public class RetroAPI{
         @FormUrlEncoded
         @POST("team/myteam")
         Observable<JsonObject> syncProfile (
-                @Field("id") String accessToken
+                @Field("token") String accessToken
         );
 
         @FormUrlEncoded
         @POST("quiz/create")
         Observable<JsonObject> startQuiz (
-                @Field("id") String id,
+                @Field("token") String id,
                 @Field("startTime") long startTime,
                 @Field("qArray[]") ArrayList<Integer> questionArray
         );
@@ -45,13 +43,13 @@ public class RetroAPI{
         @FormUrlEncoded
         @POST("quiz/getData")
         Observable<JsonObject> getQuizData (
-                @Field("id") String id
+                @Field("token") String id
         );
 
         @FormUrlEncoded
         @POST("quiz/update")
         Observable<JsonObject> updateQuizData (
-                @Field("id") String id,
+                @Field("token") String id,
                 @Field("lastQ") int lastQuestion,
                 @Field("marks") int marks
         );
@@ -59,19 +57,11 @@ public class RetroAPI{
         @FormUrlEncoded
         @POST("quiz/finishQuiz")
         Observable<JsonObject> finishQuiz (
-                @Field("id") String id,
+                @Field("token") String id,
                 @Field("finishTime") long finishTime,
                 @Field("marks") int marks
         );
 
-    }
-
-    public interface ValidityService {
-        @FormUrlEncoded
-        @POST("session/checktoken")
-        Call<ResponseBody> getAccessToken(
-                @Field("id") String authToken
-        );
     }
 
     public ObservableAPIService observableAPIService = new Retrofit.Builder()
@@ -80,10 +70,4 @@ public class RetroAPI{
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build()
             .create(ObservableAPIService.class);
-
-    public ValidityService validityService = new Retrofit.Builder()
-            .baseUrl(Constants.baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ValidityService.class);
 }

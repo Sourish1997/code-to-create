@@ -93,15 +93,15 @@ public class DataGenerator {
 
     public static String getSponsorTitle(int i)
     {
-        String title[] = {"Title Sponsor","Title Sponsor","Cloud Patner","Sponsor","Sponsor","Sponsor",
-                "Collaborator"};
+        String title[] = {"Title Sponsor","Title Sponsor","Cloud Patner","Co Sponsor","Co Sponsor","Collaborator",
+                "Collaborator", "Collaborator", "Sponsor", "Sponsor"};
         return title[i];
     }
 
     public static int pathToImage(int i)
     {
         int title[] = {R.drawable.transits,R.drawable.tricentis,R.drawable.digitalocean,R.drawable.oil_t,R.drawable.dakshinamurti
-        ,R.drawable.winuall,R.drawable.vicara};
+        ,R.drawable.winuall,R.drawable.vicara,R.drawable.aisec_tt, R.drawable.cardea, R.drawable.paypal};
         return title[i];
 
     }

@@ -12,7 +12,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +26,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.wenchao.cardstack.CardStack;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -162,9 +159,7 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
     public void discarded(int mIndex, int direction) {
         cardCount--;
         lastQuestionIndex++;
-        Log.e("message", cardCount + " " + questionArray[14 - cardCount]);
         int choice = quizDatabase[questionArray[14 - cardCount] - 1].correctChoice;
-        Log.e("message", quizDatabase[questionArray[14 - cardCount] - 1].statement);
         if(choice == direction)
             marks++;
         updateSent = false;
@@ -210,10 +205,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
                     @Override
                     public void onError(Throwable e) {
-                        StringWriter sw = new StringWriter();
-                        PrintWriter pw = new PrintWriter(sw);
-                        e.printStackTrace(pw);
-                        Log.e("message2", sw.toString());
                         if(!initialDataReceived) {
                             progressDialog.dismiss();
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -300,9 +291,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         for(int i = lastQuestionIndex + 1; i < 15; i++)
             swipeCardAdapter.add(quizDatabase[questionArray[i] - 1]);
         questionStack.setAdapter(swipeCardAdapter);
-
-        Log.e("message", lastQuestion + "");
-
         Animation slideOutAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_out);
         quizIntro.startAnimation(slideOutAnimation);
         quizIntro.setVisibility(View.INVISIBLE);
@@ -353,7 +341,8 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         for(int i = 0; i < 15; i++)
             qArray.add(questionArray[i]);
 
-        retroAPI.observableAPIService.startQuiz(accessToken, System.currentTimeMillis(), qArray)
+        long time = System.currentTimeMillis();
+        retroAPI.observableAPIService.startQuiz(accessToken, time, qArray)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JsonObject>() {
@@ -388,7 +377,6 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     public void updateQuestionData() {
         String accessToken = Constants.accessToken;
-        Log.e("message", "Update!!" + lastQuestion + "");
         retroAPI.observableAPIService.updateQuizData(accessToken, lastQuestion, marks)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -449,7 +437,8 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
         progressDialog.setMessage("Uploading Final Score...");
         progressDialog.show();
         progressDialog.setCancelable(false);
-        retroAPI.observableAPIService.finishQuiz(accessToken, System.currentTimeMillis(), marks)
+        long time = System.currentTimeMillis();
+        retroAPI.observableAPIService.finishQuiz(accessToken, time, marks)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JsonObject>() {
@@ -491,8 +480,8 @@ public class QuizFragment extends Fragment implements ScreenShotable, CardStack.
 
     public void showQuizFinishedCard() {
         finished = true;
-        quizIntro.setVisibility(View.INVISIBLE);
-        questionStack.setVisibility(View.INVISIBLE);
+        quizIntro.setVisibility(View.GONE);
+        questionStack.setVisibility(View.GONE);
         quizCompleteCard.setVisibility(View.VISIBLE);
         final Animation growAnimation  = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.grow);
         growAnimation.setAnimationListener(new Animation.AnimationListener() {
